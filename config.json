@@ -1,0 +1,42 @@
+{
+  "./Печать": {
+    "target": [
+      ".stp",
+      ".stl"
+    ],
+    "transformer": "transliterate_to_camel_snake_case"
+  },
+  "./Печать/Нарезка": {
+    "target": [
+      ".gcode"
+    ],
+    "transformer": "transliterate_to_camel_snake_case"
+  },
+  "Резка": {
+	  "target": [
+		".dxf"
+	  ]
+  },
+  "./Изображения": {
+    "target": [
+      ".png",
+      ".jpg"
+    ]
+  },
+  "./__Archive": {
+    "target": [
+      ".zip",
+      ".7z"
+    ]
+  },
+  "./__TempTrash": {
+    "target": [
+      ".log",
+      ".bak",
+      ".a3~",
+      ".png~",
+      ".m3~",
+      ".pyc"
+    ]
+  }
+}
