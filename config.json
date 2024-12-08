@@ -1,42 +1,43 @@
 {
   "./Печать": {
     "target": [
-      ".stp",
-      ".stl"
+      "stp",
+      "stl"
     ],
-    "transformer": "transliterate_to_camel_snake_case"
+    "transformer": "3d_print_special"
   },
   "./Печать/Нарезка": {
     "target": [
-      ".gcode"
+      "gcode"
     ],
-    "transformer": "transliterate_to_camel_snake_case"
+    "transformer": "translit"
   },
   "Резка": {
 	  "target": [
-		".dxf"
+		"dxf"
 	  ]
   },
   "./Изображения": {
     "target": [
-      ".png",
-      ".jpg"
-    ]
+      "png",
+      "jpg"
+    ],
+    "transformer": "camel_case"
   },
   "./__Archive": {
     "target": [
-      ".zip",
-      ".7z"
+      "zip",
+      "7z"
     ]
   },
   "./__TempTrash": {
     "target": [
-      ".log",
-      ".bak",
-      ".a3~",
-      ".png~",
-      ".m3~",
-      ".pyc"
+      "log",
+      "bak",
+      "a3~",
+      "png~",
+      "m3~",
+      "pyc"
     ]
   }
 }
