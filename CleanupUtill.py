@@ -190,6 +190,6 @@ def _launch():
     _set_shell_color(0x00)
 
 
-# _launch()
+_launch()
 
-log("test", "task complete!")
+# log("test", "task complete!")
