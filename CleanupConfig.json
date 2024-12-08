@@ -13,9 +13,9 @@
     "transformer": "translit"
   },
   "Резка": {
-	  "target": [
-		"dxf"
-	  ]
+    "target": [
+      "dxf"
+    ]
   },
   "./Изображения": {
     "target": [
