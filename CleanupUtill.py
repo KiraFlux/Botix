@@ -156,7 +156,11 @@ class FileMover:
         dest = self._transformer(PathTransformer(self._dest_path, path)).path
 
         if dest.exists():
-            os.remove(dest)
+            try:
+                os.remove(dest)
+            except PermissionError as e:
+                print(e)
+                return False
 
         new_path = path.rename(dest)
         print(f"MOVE: {path.name} -> {new_path}")
@@ -167,11 +171,11 @@ class FileMover:
         return self.__FILENAME_TRANSFORMER_TABLE[transformer_name]
 
     __FILENAME_TRANSFORMER_TABLE = {
-        None:                 lambda path: path,
-        "translit":           lambda path: path.transliterate(),
-        "camel_case":         lambda path: path.camel_case(),
+        None: lambda path: path,
+        "translit": lambda path: path.transliterate(),
+        "camel_case": lambda path: path.camel_case(),
         "add_parent_catalog": lambda path: path.add_parent(),
-        "3d_print_special":   lambda path: path.add_parent().camel_case().transliterate()
+        "3d_print_special": lambda path: path.add_parent().camel_case().transliterate()
     }
 
 
