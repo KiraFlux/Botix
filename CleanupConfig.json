@@ -1,44 +1,55 @@
 {
-  "./Печать": {
-    "target": [
-      "stp",
-      "stl"
+  "./Печать/Модели": {
+    "patterns": [
+      "*.stp",
+      "*.stl"
     ],
     "transformer": "3d_print_special"
   },
-  "./Печать/Нарезка": {
-    "target": [
-      "gcode"
+  "./Печать/G-code/Ender-3_V2": {
+    "patterns": [
+      "*Ender-3_V2.gcode"
     ],
     "transformer": "translit"
   },
+  "./Печать/G-code/Ender-3_V3": {
+    "patterns": [
+      "*Ender-3_V3.gcode"
+    ],
+    "transformer": "translit"
+  },
+  "./Печать/Prusa-3mf": {
+    "patterns": [
+      "*.3mf"
+    ]
+  },
   "Резка": {
-    "target": [
-      "dxf"
+    "patterns": [
+      "*.dxf"
     ]
   },
   "./Изображения": {
-    "target": [
-      "png",
-      "jpg"
+    "patterns": [
+      "*.png",
+      "*.jpg"
     ],
     "transformer": "camel_case"
   },
   "./__Archive": {
-    "target": [
-      "zip",
-      "7z"
+    "patterns": [
+      "*.zip",
+      "*.7z"
     ]
   },
   "./__TempTrash": {
-    "target": [
-      "log",
-      "bak",
-      "a3~",
-      "png~",
-      "m3~",
-      "pyc",
-	  "fr~"
+    "patterns": [
+      "*.log",
+      "*.bak",
+      "*.pyc",
+      "*.a3~",
+      "*.png~",
+      "*.m3~",
+      "*.fr~"
     ]
   }
 }

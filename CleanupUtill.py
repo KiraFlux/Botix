@@ -69,8 +69,12 @@ def _get_size_str(size: int) -> str:
     return f"{size} {unit}"
 
 
-def _make_glob(path: Path, extensions: Sequence[str]):
-    return chain(*(path.rglob(f"*.{extension}") for extension in extensions))
+def _make_glob(path: Path, patterns: Sequence[str]):
+    return chain(*(map(path.rglob, patterns)))
+
+
+def _copy_case(source_case: str, letter: str) -> str:
+    return letter.upper() if source_case.isupper() else source_case.lower()
 
 
 @dataclass
@@ -106,7 +110,7 @@ class PathTransformer:
         self.path = self.parent / (new_name + self.path.suffix)
 
     def _transliterate(self, s: str) -> str:
-        return "".join(self.__TRANSLITERATE_TABLE.get(char, char) for char in s.lower())
+        return "".join(self.__TRANSLITERATE_TABLE.get(char.lower(), char) for char in s.lower())
 
     @staticmethod
     def _camel_case(s: str) -> str:
@@ -123,7 +127,7 @@ FileNameTransformer = Callable[[PathTransformer], PathTransformer]
 class FileMover:
     """Настройка перемещение файлов"""
 
-    def __init__(self, path: str, target: Sequence[str], transformer: Optional[str] = None) -> None:
+    def __init__(self, path: str, patterns: Sequence[str], transformer: Optional[str] = None) -> None:
         """
         Агент каталога
         path: Относительный путь к целевому каталогу
@@ -131,25 +135,25 @@ class FileMover:
         transformer: Наименование функции трансформации имени перемещаемого файла
         """
 
-        self.dest_path = Path(path).absolute()
-        self.transformer = self._get_filename_transformer(transformer)
-        self.target_extensions = target
+        self._dest_path = Path(path).absolute()
+        self._transformer = self._get_filename_transformer(transformer)
+        self._patterns = patterns
 
     def run(self, work_dir: Path) -> int:
         """Применить функцию трансформации ко всем целевым файлам в заданном каталоге"""
-        if not self.dest_path.exists():
-            print(f"MKDIR: {self.dest_path!s}")
-            self.dest_path.mkdir(parents=True)
+        if not self._dest_path.exists():
+            print(f"MKDIR: {self._dest_path!s}")
+            self._dest_path.mkdir(parents=True)
 
-        moved_count = sum(map(self._move, _make_glob(work_dir, self.target_extensions)))
-        print(f"Moved: {self.dest_path.absolute().__str__() + ' ':.<100} {moved_count}")
+        moved_count = sum(map(self._move, _make_glob(work_dir, self._patterns)))
+        print(f"Moved: {self._dest_path.absolute().__str__() + ' ':.<100} {moved_count}")
         return moved_count
 
     def _move(self, path: Path) -> bool:
-        if path.parent == self.dest_path:
+        if path.parent == self._dest_path:
             return False
 
-        dest = self.transformer(PathTransformer(self.dest_path, path)).path
+        dest = self._transformer(PathTransformer(self._dest_path, path)).path
 
         if dest.exists():
             os.remove(dest)
@@ -163,11 +167,11 @@ class FileMover:
         return self.__FILENAME_TRANSFORMER_TABLE[transformer_name]
 
     __FILENAME_TRANSFORMER_TABLE = {
-        None: lambda path: path,
-        "translit": lambda path: path.transliterate(),
-        "camel_case": lambda path: path.camel_case(),
+        None:                 lambda path: path,
+        "translit":           lambda path: path.transliterate(),
+        "camel_case":         lambda path: path.camel_case(),
         "add_parent_catalog": lambda path: path.add_parent(),
-        "3d_print_special": lambda path: path.add_parent().camel_case().transliterate()
+        "3d_print_special":   lambda path: path.add_parent().camel_case().transliterate()
     }
 
 
@@ -213,5 +217,3 @@ def _launch():
 
 
 _launch()
-
-# log("test", "task complete!")
