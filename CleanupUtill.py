@@ -158,7 +158,7 @@ class FileMover:
         if dest.exists():
             try:
                 os.remove(dest)
-            except PermissionError as e:
+            except OSError as e:
                 print(e)
                 return False
 
