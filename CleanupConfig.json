@@ -8,13 +8,17 @@
   },
   "./Печать/G-code/Ender-3_V2": {
     "patterns": [
-      "*Ender-3_V2.gcode"
+      "*Ender-3_V2.gcode",
+      "*Ender3_V2.gcode",
+      "*3V2.gcode"
     ],
     "transformer": "translit"
   },
   "./Печать/G-code/Ender-3_V3": {
     "patterns": [
-      "*Ender-3_V3.gcode"
+      "*Ender-3_V3.gcode",
+      "*Ender3_V3.gcode",
+      "*3V3.gcode"
     ],
     "transformer": "translit"
   },
