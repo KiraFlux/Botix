@@ -155,14 +155,16 @@ class FileMover:
 
         dest = self._transformer(PathTransformer(self._dest_path, path)).path
 
-        if dest.exists():
-            try:
+        try:
+            if dest.exists():
                 os.remove(dest)
-            except OSError as e:
-                print(e)
-                return False
 
-        new_path = path.rename(dest)
+            new_path = path.rename(dest)
+
+        except OSError as e:
+            print(e)
+            return False
+
         print(f"MOVE: {path.name} -> {new_path}")
 
         return True
