@@ -1,0 +1,66 @@
+//
+// !!! WARNING !!! AUTO-GENERATED FILE!
+// PLEASE DO NOT MODIFY IT AND USE "platformio.ini":
+// https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags
+//
+{
+    "configurations": [
+        {
+            "name": "PlatformIO",
+            "includePath": [
+                "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/include",
+                "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/src",
+                "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/lib/Color-Sensor/src",
+                "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/.pio/libdeps/uno/Adafruit TCS34725",
+                "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/.pio/libdeps/uno/Adafruit BusIO",
+                "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/.pio/libdeps/uno/GyverOLED/src",
+                "C:/Users/User/.platformio/packages/framework-arduino-avr/cores/arduino",
+                "C:/Users/User/.platformio/packages/framework-arduino-avr/variants/standard",
+                "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/lib/Graphics/src",
+                "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/include",
+                    "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/src",
+                    "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/lib/Color-Sensor/src",
+                    "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/.pio/libdeps/uno/Adafruit TCS34725",
+                    "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/.pio/libdeps/uno/Adafruit BusIO",
+                    "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/SPI/src",
+                    "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/Wire/src",
+                    "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/.pio/libdeps/uno/GyverOLED/src",
+                    "C:/Users/User/.platformio/packages/framework-arduino-avr/cores/arduino",
+                    "C:/Users/User/.platformio/packages/framework-arduino-avr/variants/standard",
+                    "e:/Projects/Mobile-Robot-MIDI/Код/PlatformIO/Robot-Main/lib/Graphics/src",
+                    "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/EEPROM/src",
+                    "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/HID/src",
+                    "C:/Users/User/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=60116",
+                "ARDUINO_AVR_UNO",
+                "F_CPU=16000000L",
+                "ARDUINO_ARCH_AVR",
+                "ARDUINO=10808",
+                "__AVR_ATmega328P__",
+                ""
+            ],
+            "cStandard": "gnu11",
+            "cppStandard": "gnu++11",
+            "compilerPath": "C:/Users/User/.platformio/packages/toolchain-atmelavr/bin/avr-gcc.exe",
+            "compilerArgs": [
+                "-mmcu=atmega328p",
+                ""
+            ]
+        }
+    ],
+    "version": 4
+}
