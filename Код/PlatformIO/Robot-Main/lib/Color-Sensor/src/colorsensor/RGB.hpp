@@ -6,15 +6,15 @@
 namespace colorsensor {
     /// Значения частот
     struct RGB {
-        const uint32_t r, g, b;
+        const float r, g, b;
 
         /// На сколько показания частот отличаются
-        uint32_t difference(const RGB &other) const {
-            int32_t delta_r = r - other.r;
-            int32_t delta_g = g - other.g;
-            int32_t delta_b = b - other.b;
+        float difference(const RGB &other) const {
+            float delta_r = r - other.r;
+            float delta_g = g - other.g;
+            float delta_b = b - other.b;
 
-            return abs(delta_r) + abs(delta_g) + abs(delta_b);
+            return (delta_r * delta_r) + (delta_g * delta_g) + (delta_b * delta_b);
         }
     };
 }
