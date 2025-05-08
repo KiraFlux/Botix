@@ -1,12 +1,12 @@
 {
-  "./Печать/Модели": {
+  "./Производство/3D-Печать": {
     "patterns": [
       "*.stp",
       "*.stl"
     ],
     "transformer": "3d_print_special"
   },
-  "./Печать/G-code/Ender-3_V2": {
+  "./Производство/G-code/Ender-3_V2": {
     "patterns": [
       "*Ender-3_V2.gcode",
       "*Ender3_V2.gcode",
@@ -14,7 +14,7 @@
     ],
     "transformer": "translit"
   },
-  "./Печать/G-code/Ender-3_V3": {
+  "./Производство/G-code/Ender-3_V3": {
     "patterns": [
       "*Ender-3_V3.gcode",
       "*Ender3_V3.gcode",
@@ -22,12 +22,7 @@
     ],
     "transformer": "translit"
   },
-  "./Печать/Prusa-3mf": {
-    "patterns": [
-      "*.3mf"
-    ]
-  },
-  "Резка": {
+  "./Производство/Резка": {
     "patterns": [
       "*.dxf"
     ]
