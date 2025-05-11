@@ -69,7 +69,7 @@ def _get_size_str(size: int) -> str:
     return f"{size} {unit}"
 
 
-def _make_glob(path: Path, patterns: Sequence[str]):
+def _make_glob(path: Path, patterns: Sequence[str]) -> Iterable[Path]:
     return chain(*(map(path.rglob, patterns)))
 
 
