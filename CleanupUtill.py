@@ -69,7 +69,8 @@ def _get_size_str(size: int) -> str:
     return f"{size} {unit}"
 
 
-def _make_glob(path: Path, patterns: Sequence[str]) -> Iterable[Path]:
+def make_glob(path: Path, patterns: Sequence[str]) -> Iterable[Path]:
+    """Создать генератор путей по родительскому каталогу с указанными расширениями"""
     return chain(*(map(path.rglob, patterns)))
 
 
@@ -145,7 +146,7 @@ class FileMover:
             print(f"MKDIR: {self._dest_path!s}")
             self._dest_path.mkdir(parents=True)
 
-        moved_count = sum(map(self._move, _make_glob(work_dir, self._patterns)))
+        moved_count = sum(map(self._move, make_glob(work_dir, self._patterns)))
         print(f"Moved: {self._dest_path.absolute().__str__() + ' ':.<100} {moved_count}")
         return moved_count
 
@@ -204,7 +205,7 @@ class FileMoverCollection:
 
     @staticmethod
     def _get_file_movers(json_file: TextIO) -> Iterable[FileMover]:
-        return (FileMover(path, **data) for path, data in json.load(json_file).items())
+        return (FileMover(path, **data) for path, data in json.load(json_file).parts())
 
 
 def _launch():
@@ -222,4 +223,5 @@ def _launch():
     _set_shell_color(0x00)
 
 
-_launch()
+if __name__ == '__main__':
+    _launch()
