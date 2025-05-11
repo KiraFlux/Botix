@@ -65,7 +65,7 @@ class Element:
         return (i.display(index + 1) for index, i in enumerate(items))
 
     @staticmethod
-    def filterElements(elements: Sequence[Element]) -> Sequence[Element]:
+    def filterElements[T: Element](elements: Iterable[T]) -> Sequence[T]:
         elements_map: MutableMapping[str, Element] = dict()
 
         for e in elements:
@@ -98,23 +98,34 @@ class AsmUnit(Element):
     """Сборочная единица"""
 
     parts: Sequence[Part]
-    """Детали, входящие в состав"""
+    """Актуальные детали, входящие в состав"""
+    deprecated_parts: int
+    """Количество устаревших деталей"""
 
     @classmethod
     def load(cls, source_path: Path, part_patterns: Sequence[str]) -> AsmUnit:
         metadata = MetaData.load(source_path)
 
-        return cls(metadata, sorted(
-            map(Part.load, make_glob(source_path, part_patterns)),
-            key=lambda p: p.metadata.version,
-            reverse=True
-        ))
+        total_elements = tuple(map(Part.load, make_glob(source_path, part_patterns)))
+        actual_elements = Element.filterElements(total_elements)
+
+        return cls(metadata, actual_elements, len(total_elements) - len(actual_elements))
 
     def _getTitle(self) -> str:
         ret = self.metadata.__str__()
 
-        if len(self.parts) > 1:
-            ret += f" :: (parts: {len(self.parts)})"
+        parts = len(self.parts)
+
+        if parts > 1:
+            ret += f" :: ("
+
+            if self.deprecated_parts == 0:
+                ret += f"деталей: {parts}"
+
+            else:
+                ret += f"актуальных: {parts}, устаревших: {self.deprecated_parts}"
+
+            ret += ")"
 
         return f"[ {ret} ]"
 
@@ -122,7 +133,7 @@ class AsmUnit(Element):
         return f"{self._getTitle()}\n{'\n'.join(
             (
                 f"{' ' * 4 + s}"
-                for s in Element.applyEnumerators(Element.filterElements(self.parts))
+                for s in Element.applyEnumerators(self.parts)
             )
         )}\n"
 
@@ -163,7 +174,7 @@ class UnitManager:
 def _test():
     part_patterns = ("*.m3d",)
 
-    # print(UnitManager.load(Path("Модели/Шасси"), part_patterns))
+    print(UnitManager.load(Path("Модели/Шасси"), part_patterns))
     print(UnitManager.load(Path("Модели/Модули"), part_patterns))
 
     return
