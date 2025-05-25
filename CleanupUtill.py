@@ -205,7 +205,7 @@ class FileMoverCollection:
 
     @staticmethod
     def _get_file_movers(json_file: TextIO) -> Iterable[FileMover]:
-        return (FileMover(path, **data) for path, data in json.load(json_file).parts())
+        return (FileMover(path, **data) for path, data in json.load(json_file).items())
 
 
 def _launch():

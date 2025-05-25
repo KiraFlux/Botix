@@ -1,39 +1,4 @@
 {
-  "./Производство/3D-Печать": {
-    "patterns": [
-      "*.stp",
-      "*.stl"
-    ],
-    "transformer": "3d_print_special"
-  },
-  "./Производство/G-code/Ender-3_V2": {
-    "patterns": [
-      "*Ender-3_V2.gcode",
-      "*Ender3_V2.gcode",
-      "*3V2.gcode"
-    ],
-    "transformer": "translit"
-  },
-  "./Производство/G-code/Ender-3_V3": {
-    "patterns": [
-      "*Ender-3_V3.gcode",
-      "*Ender3_V3.gcode",
-      "*3V3.gcode"
-    ],
-    "transformer": "translit"
-  },
-  "./Производство/Резка": {
-    "patterns": [
-      "*.dxf"
-    ]
-  },
-  "./Изображения": {
-    "patterns": [
-      "*.png",
-      "*.jpg"
-    ],
-    "transformer": "camel_case"
-  },
   "./__Archive": {
     "patterns": [
       "*.zip",
