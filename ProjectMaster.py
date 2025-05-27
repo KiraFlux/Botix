@@ -5,13 +5,23 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from io import StringIO
 from pathlib import Path
+from typing import Final
 from typing import Iterable
 from typing import MutableMapping
 from typing import Optional
 from typing import Sequence
 
 from CleanupUtill import make_glob
+
+EXT_3MF: Final[str] = "3mf"
+EXT_STP: Final[str] = "stp"
+EXT_M3D: Final[str] = "m3d"
+
+
+def _exists_with_ext(original_path: Path, ext: str) -> bool:
+    return (original_path.parent / f"{original_path.stem}.{ext}").exists()
 
 
 @dataclass(frozen=True)
@@ -43,7 +53,7 @@ class MetaData:
         return " ".join(self.words)
 
     def __repr__(self) -> str:
-        return f"V{self.version} :: {self.name()}"
+        return f"{self.name()} - V{self.version}"
 
 
 @dataclass(frozen=True)
@@ -52,17 +62,6 @@ class Element:
 
     metadata: MetaData
     """Метаданные"""
-
-    def display(self, index: int) -> str:
-        """Отобразить элемент"""
-        return f"{index:>02}: {self.__str__()}"
-
-    @staticmethod
-    def applyEnumerators(items: Sequence[Element]) -> Iterable[str]:
-        if len(items) == 1:
-            return (items[0].__str__(),)
-
-        return (i.display(index + 1) for index, i in enumerate(items))
 
     @staticmethod
     def filterElements[T: Element](elements: Iterable[T]) -> Sequence[T]:
@@ -84,10 +83,18 @@ class Element:
 class Part(Element):
     """Деталь"""
 
+    has_stp: bool
+    """Имеет stp представление"""
+    has_3mf: bool
+    """Имеет 3mf представление"""
+
     @classmethod
     def load(cls, path: Path) -> Part:
-        metadata = MetaData.load(path)
-        return cls(metadata)
+        return cls(
+            metadata=MetaData.load(path),
+            has_stp=_exists_with_ext(path, EXT_STP),
+            has_3mf=_exists_with_ext(path, EXT_3MF)
+        )
 
     def __str__(self) -> str:
         return self.metadata.__str__()
@@ -103,43 +110,41 @@ class AsmUnit(Element):
     """Количество устаревших деталей"""
 
     @classmethod
-    def load(cls, source_path: Path, part_patterns: Sequence[str]) -> AsmUnit:
+    def load(cls, source_path: Path) -> AsmUnit:
         metadata = MetaData.load(source_path)
 
-        total_elements = tuple(map(Part.load, make_glob(source_path, part_patterns)))
+        total_elements = tuple(map(Part.load, make_glob(source_path, (f"*.{EXT_M3D}",))))
         actual_elements = Element.filterElements(total_elements)
 
         return cls(metadata, actual_elements, len(total_elements) - len(actual_elements))
 
-    def _getTitle(self) -> str:
-        ret = self.metadata.__str__()
-
-        parts = len(self.parts)
-
-        if parts > 1:
-            ret += f" :: ("
-
-            if self.deprecated_parts == 0:
-                ret += f"деталей: {parts}"
-
-            else:
-                ret += f"актуальных: {parts}, устаревших: {self.deprecated_parts}"
-
-            ret += ")"
-
-        return f"[ {ret} ]"
-
-    def __str__(self) -> str:
-        return f"{self._getTitle()}\n{'\n'.join(
-            (
-                f"{' ' * 4 + s}"
-                for s in Element.applyEnumerators(self.parts)
-            )
-        )}\n"
-
 
 def _iterDirs(root: Path) -> Iterable[Path]:
     return (p for p in root.iterdir() if p.is_dir())
+
+
+# noinspection PyMissingOrEmptyDocstring
+class MD:
+
+    @staticmethod
+    def img(src: Path, width: int = 400) -> str:
+        return f'<img src="{src}" width="{width}">'
+
+    @staticmethod
+    def collapsingHeader(title: str, items: Sequence[str]) -> str:
+        return f'<details><summary><strong>{title}</strong></summary>{'\n\n'.join(items)}</details>'
+
+    @staticmethod
+    def link(title: str, p: Path) -> str:
+        return f'[{title}]({p})'
+
+    @staticmethod
+    def header(s: str, level: int = 1) -> str:
+        return f'{'#' * level} {s}'
+
+    @staticmethod
+    def quote(s: str) -> str:
+        return f"> {s}"
 
 
 @dataclass(frozen=True)
@@ -152,11 +157,11 @@ class UnitManager:
     """Единицы"""
 
     @classmethod
-    def load(cls, path: Path, part_patterns: Sequence[str]) -> UnitManager:
+    def load(cls, path: Path) -> UnitManager:
         return cls(
             path,
             tuple(map(
-                lambda p: AsmUnit.load(p, part_patterns),
+                lambda p: AsmUnit.load(p),
                 _iterDirs(path)
             ))
         )
@@ -165,17 +170,17 @@ class UnitManager:
         """Получить наименование коллекции"""
         return self.path.name
 
-    def __repr__(self) -> str:
-        return f"{(' <<< ' + self.name() + f': {len(self.units)} >>> '):-^80}\n\n{'\n'.join(
-            Element.applyEnumerators(self.units)
-        )}\n"
+    def toMD(self) -> str:
+        """Преобразовать в MarkDown"""
+        s = StringIO()
+
+        s.write(MD.header(MD.link(self.name(), self.path)))
+
+        return s.getvalue()
 
 
 def _test():
-    part_patterns = ("*.m3d",)
-
-    print(UnitManager.load(Path("Модели/Шасси"), part_patterns))
-    print(UnitManager.load(Path("Модели/Модули"), part_patterns))
+    print(UnitManager.load(Path("Модели/Шасси")).toMD())
 
     return
 
