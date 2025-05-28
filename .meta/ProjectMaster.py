@@ -5,7 +5,6 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from io import StringIO
 from pathlib import Path
 from typing import Final
 from typing import Iterable
@@ -124,27 +123,6 @@ def _iterDirs(root: Path) -> Iterable[Path]:
 
 
 # noinspection PyMissingOrEmptyDocstring
-class MD:
-
-    @staticmethod
-    def img(src: Path, width: int = 400) -> str:
-        return f'<img src="{src}" width="{width}">'
-
-    @staticmethod
-    def collapsingHeader(title: str, items: Sequence[str]) -> str:
-        return f'<details><summary><strong>{title}</strong></summary>{'\n\n'.join(items)}</details>'
-
-    @staticmethod
-    def link(title: str, p: Path) -> str:
-        return f'[{title}]({p})'
-
-    @staticmethod
-    def header(s: str, level: int = 1) -> str:
-        return f'{'#' * level} {s}'
-
-    @staticmethod
-    def quote(s: str) -> str:
-        return f"> {s}"
 
 
 @dataclass(frozen=True)
@@ -170,17 +148,9 @@ class UnitManager:
         """Получить наименование коллекции"""
         return self.path.name
 
-    def toMD(self) -> str:
-        """Преобразовать в MarkDown"""
-        s = StringIO()
-
-        s.write(MD.header(MD.link(self.name(), self.path)))
-
-        return s.getvalue()
-
 
 def _test():
-    print(UnitManager.load(Path("Модели/Шасси")).toMD())
+    print(UnitManager.load(Path("../Модели/Шасси")))
 
     return
 

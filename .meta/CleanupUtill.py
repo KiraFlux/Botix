@@ -9,7 +9,6 @@ from __future__ import annotations
 
 import json
 import os
-import sys
 from dataclasses import dataclass
 from itertools import chain
 from pathlib import Path
@@ -19,30 +18,7 @@ from typing import Optional
 from typing import Sequence
 from typing import TextIO
 
-_WORK_DIR = Path(__file__).parent.absolute()
-
-
-class Color:
-    """ANSI escape цвета"""
-    HEADER = '\033[95m'
-    OK_BLUE = '\033[94m'
-    OK_CYAN = '\033[96m'
-    OK_GREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    END = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
-
-def log(status: str, message: str) -> None:
-    """
-    Вывод сообщения
-    Args:
-        status: Статус задачи
-        message: Сообщение
-    """
-    sys.stdout.write(f"[{Color.OK_GREEN}{f'{status:^10}'}{Color.END}]\t{Color.BOLD}{message}{Color.END}\n")
+_WORK_DIR = Path(__file__).parent.absolute().parent
 
 
 def _get_workdir_size_bytes() -> int:
