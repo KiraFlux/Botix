@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
 <!--
 OmniCore-Robotics
 Copyright (C) 2025  Naumov Maxim
@@ -25,7 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 <style>
 :root {
-  --primary-color:  rgb(240, 120, 60);
+  --primary-color:  rgb(240, 120, 60); 
   --secondary-color: rgb(120, 180, 200);
   --tertiary-color: rgb(120, 80, 220);
   --bg-color: #0d1117;
@@ -215,5 +208,3 @@ ol li {
 <p>Проект распространяется под лицензией <strong>GNU General Public License v3.0</strong>.<br>
 Любые производные работы должны оставаться открытыми и распространяться под той же лицензией.</p>
 <p>Подробнее: <a href="LICENSE">LICENSE</a></p>
-</body>
-</html>
