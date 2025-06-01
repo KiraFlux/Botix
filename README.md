@@ -1,31 +1,15 @@
-<!--
-OmniCore-Robotics
-Copyright (C) 2025  Naumov Maxim
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
--->
-
 <div align="center">
   <h1>OmniCore Robotics</h1>
   <p>Открытая модульная платформа для создания мобильных роботов</p>
 </div>
 
+---
+
 > ### Обзор
 > Проект разрабатывает совместимые модули и шасси для мобильных роботов
 >
 > **Разработка происходит с использованием:**
-> - 3D-печати (FFF/FDM)
+> - 3D-печати FDM
 > - Лазерной резки
 > - Модульного подхода в проектировании
 >
@@ -53,19 +37,19 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 > - [Профили](./Модели/Профили) — Вспомогательные модели
 > - [Формы](./Модели/Формы) — Формы для отливки
 >
-> <sub>Для проектирования используется КОМПАС 3D v23: `.m3d`, `.a3d`  
-> Подготовка к печати - PrusaSlicer: `.3mf`, `.stp`</sub>
+> <sub>Для проектирования используется КОМПАС 3D v23: `m3d`, `a3d`  
+> Подготовка к печати - PrusaSlicer: `3mf`, `stp`</sub>
 
-> ### [Код](./Код)
-> Программное обеспечение для управления роботами
+> ### [Code](./Code)
+> Программное обеспечение
 >
 > **Разделы:**
-> - [Arduino](./Код/Arduino) — Скетчи (Примеры)
-> - [PlatformIO](./Код/PlatformIO) — Проекты PIO
+> - [Arduino](./Code/Arduino) — Скетчи (Примеры)
+> - [PlatformIO](./Code/PlatformIO) — Проекты PIO
 >
 > <sub>Используется Clion или VS Code для разработки</sub>
 
-> ### [.meta](./.meta)
+> ### [Meta](./Meta)
 > Служебные данные и утилиты проекта
 >
 > <sub>Метаданные проекта и вспомогательные инструменты</sub>
