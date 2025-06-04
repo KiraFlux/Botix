@@ -39,14 +39,6 @@ class Metadata:
         pure_version_string = vs[slice(len(cls.version_prefix), None)]
         return int(pure_version_string)
 
-    def getDisplayName(self) -> str:
-        """Получить отображаемое имя"""
-        return self.display_words_joiner.join(self.words)
-
-    def getDisplayVersion(self) -> str:
-        """Получить отображаемую версию"""
-        return f"{self.version_prefix}{self.version}"
-
     @classmethod
     def getImageFilePatterns(cls, filename: str) -> Iterable[str]:
         """Получить шаблон пути изображения"""
@@ -54,3 +46,11 @@ class Metadata:
             f"{filename}{cls.parse_words_delimiter}*.{e}"
             for e in cls.image_extensions
         )
+
+    def getDisplayName(self) -> str:
+        """Получить отображаемое имя"""
+        return self.display_words_joiner.join(self.words)
+
+    def getDisplayVersion(self) -> str:
+        """Получить отображаемую версию"""
+        return f"{self.version_prefix}{self.version}"
