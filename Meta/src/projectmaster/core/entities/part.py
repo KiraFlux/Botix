@@ -33,7 +33,7 @@ class PartBuilder:
     transition_extensions: ClassVar = ("stp", "step", "stl", "obj")
     """Переходные форматы деталей"""
 
-    path: Path
+    _path: Path
     """Путь к исходной детали"""
 
     def build(self) -> Part:
@@ -45,17 +45,15 @@ class PartBuilder:
         )
 
     @property
-    def filename(self) -> str:
-        """Имя файла детали"""
-        return self.path.stem
+    def _filename(self) -> str:
+        return self._path.stem
 
     @property
-    def folder(self) -> Path:
-        """Каталог детали"""
-        return self.path.parent
+    def _folder(self) -> Path:
+        return self._path.parent
 
     def _loadMetadata(self) -> Metadata:
-        words = self.filename.split(Metadata.parse_words_delimiter)
+        words = self._filename.split(Metadata.parse_words_delimiter)
 
         if words[-1].lower().startswith(Metadata.version_prefix):
             *words, version_string = words
@@ -64,18 +62,18 @@ class PartBuilder:
             v = Metadata.default_version
 
         return Metadata(
-            path=self.path,
+            path=self._path,
             words=words,
             version=v,
-            images=tuple(make_glob(self.folder, Metadata.getImageFilePatterns(self.filename)))
+            images=tuple(make_glob(self._folder, Metadata.getImageFilePatterns(self._filename)))
         )
 
     def _loadPrusaProjectFile(self) -> Optional[Path]:
-        prusa_path = self.folder / f"{self.filename}.{self.prusa_project_extension}"
+        prusa_path = self._folder / f"{self._filename}.{self.prusa_project_extension}"
         return prusa_path if prusa_path.exists() else None
 
     def _loadTranslationFiles(self) -> Sequence[Path]:
-        return tuple(make_glob(self.folder, (
-            f"{self.filename}.{e}"
+        return tuple(make_glob(self._folder, (
+            f"{self._filename}.{e}"
             for e in self.transition_extensions
         )))
