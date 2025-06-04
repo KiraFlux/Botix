@@ -8,3 +8,4 @@ p = root / "Модели/Модули/АКБ/АКБ-18650-3S/Закрытый-v1
 
 unit = UnitLoader(p).load()
 print(unit)
+print(unit.metadata)

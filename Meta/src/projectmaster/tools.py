@@ -19,3 +19,8 @@ class ExtensionsMatcher:
             for e in self._extensions
         )
         return chain(*(map(folder.rglob, patterns)))
+
+
+def iterDirs(root: Path) -> Iterable[Path]:
+    """Итерация по каталогам"""
+    return (p for p in root.iterdir() if p.is_dir())
