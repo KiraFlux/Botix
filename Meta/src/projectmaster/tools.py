@@ -21,6 +21,15 @@ class ExtensionsMatcher:
         return chain(*(map(folder.rglob, patterns)))
 
 
-def iterDirs(root: Path) -> Iterable[Path]:
-    """Итерация по каталогам"""
-    return (p for p in root.iterdir() if p.is_dir())
+def iterDirs(root: Path, level: int = 0) -> Iterable[Path]:
+    """Итерация по каталогам до указанного уровня вложенности"""
+    assert level >= 0
+
+    def _subs(_dir: Path) -> Iterable[Path]:
+        return filter(lambda p: p.is_dir(), _dir.iterdir())
+
+    yield from (
+        _subs(root)
+        if level == 0 else
+        chain(*map(_subs, iterDirs(root, level - 1)))
+    )
