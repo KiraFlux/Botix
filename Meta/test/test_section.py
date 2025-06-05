@@ -7,5 +7,5 @@ root = Path("A:/Projects/OmniCore-Robotics") / "Модели"
 p1 = root / "Модули"
 p2 = root / "Шасси"
 
-section = SectionLoader(p2).load()
-print(section)
+section = SectionLoader(_path=p2, _level=1).load()
+print(section.units[0])

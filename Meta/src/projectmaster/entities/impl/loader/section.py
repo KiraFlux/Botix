@@ -3,7 +3,6 @@
 """
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
 
 from projectmaster.entities.abc.loader import EntityLoader
 from projectmaster.entities.core.section import Section
@@ -21,15 +20,10 @@ class SectionLoader(EntityLoader[Section]):
     def load(self) -> Section:
         return Section(
             units=tuple(
-                UnitLoader(unit_version).load()
-                for unit_type in iterDirs(self.folder())
-                for unit_kind in iterDirs(unit_type)
-                for unit_version in iterDirs(unit_kind)
+                UnitLoader(unit_path).load()
+                for unit_path in iterDirs(self.folder(), self._level)
             )
         )
-
-    def _getUnitFolders(self) -> Iterable[Path]:
-        return iterDirs(self.folder(), self._level)
 
     def __post_init__(self) -> None:
         assert 0 <= self._level
