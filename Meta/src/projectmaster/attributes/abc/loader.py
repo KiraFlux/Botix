@@ -21,11 +21,15 @@ class AttributesLoader[T](ABC):
     def parse(self, data: Mapping[str, Any]) -> T:
         """Преобразовать файл атрибутов"""
 
-    def _getFilePath(self) -> Path:
-        return self.path / f".{self.getSuffix()}"
-
     def load(self) -> T:
         """Загрузить атрибуты"""
         with open(self._getFilePath()) as f:
             data = json.load(f)
             return self.parse(data)
+
+    def exists(self) -> bool:
+        """Каталог содержит атрибут"""
+        return self._getFilePath().exists()
+
+    def _getFilePath(self) -> Path:
+        return self.path / f".{self.getSuffix()}"
