@@ -1,6 +1,7 @@
 """
 Визуализация в текстовом представлении
 """
+
 from dataclasses import dataclass
 from typing import ClassVar
 from typing import TextIO
