@@ -17,10 +17,12 @@ class TextRenderEntityVisitor(EntityVisitor):
     output: TextIO
 
     def visitMetadataEntity(self, metadata: MetadataEntity) -> None:
-        self.output.write(f"{metadata.getDisplayName()} : {metadata.getDisplayVersion()} : [images:{len(metadata.images)}]")
+        self.output.write(f"{metadata.getDisplayName()}-{metadata.getDisplayVersion()} : images({len(metadata.images)})")
 
     def visitPartEntity(self, part: PartEntity) -> None:
-        pass
+        self.visitMetadataEntity(part.metadata)
+        t = ','.join(p.suffix for p in part.transitions)
+        self.output.write(f" : transitions({t}) : prusa({part.prusa_project is not None})")
 
     def visitUnitEntity(self, unit: UnitEntity) -> None:
         pass
