@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from html.abc.widget import Widget
+from projectmaster.engines.html.abc.widget import Widget
 
 
 @dataclass(frozen=True)
