@@ -29,12 +29,21 @@ class TextRenderEntityVisitor(EntityVisitor):
         self.output.write('\t')
 
     def visitMetadataEntity(self, metadata: MetadataEntity) -> None:
-        self.output.write(f"{metadata.getEntityName():{self.metadata_name_width}} : images({len(metadata.images)})")
+        self.output.write(f"{metadata.getEntityName():{self.metadata_name_width}}")
+
+        if metadata.images:
+            self.output.write(f": images({len(metadata.images)})")
 
     def visitPartEntity(self, part: PartEntity) -> None:
         self.visitMetadataEntity(part.metadata)
-        t = ','.join(p.suffix for p in part.transitions)
-        self.output.write(f" : transitions({t}) : prusa({part.prusa_project is not None})")
+
+        if part.prusa_project is not None:
+            self.writeTab()
+            self.output.write("prusa")
+
+        if part.transitions:
+            self.writeTab()
+            self.output.write('(' + ','.join(p.suffix for p in part.transitions) + ')')
 
     def visitUnitEntity(self, unit: UnitEntity) -> None:
         self.visitMetadataEntity(unit.metadata)
@@ -60,4 +69,11 @@ class TextRenderEntityVisitor(EntityVisitor):
             self.writeLine()
 
     def visitProjectEntity(self, project: ProjectEntity) -> None:
-        pass
+        self.output.write(f"РАЗДЕЛЫ: ({len(project.sections)})")
+        self.writeLine()
+
+        self.writeLine()
+
+        for section in project.sections:
+            self.visitSectionEntity(section)
+            self.writeLine()
