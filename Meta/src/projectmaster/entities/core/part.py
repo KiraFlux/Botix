@@ -7,14 +7,14 @@ from pathlib import Path
 from typing import Optional
 from typing import Sequence
 
-from projectmaster.entities.core.metadata import Metadata
+from projectmaster.entities.core.metadata import MetadataEntity
 
 
 @dataclass(frozen=True, kw_only=True)
-class Part:
+class PartEntity:
     """Деталь"""
 
-    metadata: Metadata
+    metadata: MetadataEntity
     """Метаданные"""
     prusa_project: Optional[Path]
     """Путь к проекту Prusa этой детали"""

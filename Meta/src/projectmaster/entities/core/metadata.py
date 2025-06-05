@@ -9,7 +9,7 @@ from typing import Sequence
 
 
 @dataclass(frozen=True, kw_only=True)
-class Metadata:
+class MetadataEntity:
     """Метаданные сущности"""
 
     parse_words_delimiter: ClassVar = '-'

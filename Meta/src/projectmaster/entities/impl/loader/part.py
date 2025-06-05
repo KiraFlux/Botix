@@ -5,12 +5,12 @@ from typing import ClassVar
 from typing import Optional
 
 from projectmaster.entities.abc.loader import EntityLoader
-from projectmaster.entities.core.part import Part
-from projectmaster.entities.impl.loader.metadata import MetadataLoader
+from projectmaster.entities.core.part import PartEntity
+from projectmaster.entities.impl.loader.metadata import MetadataEntityLoader
 from projectmaster.tools import ExtensionsMatcher
 
 
-class PartLoader(EntityLoader[Part]):
+class PartEntityLoader(EntityLoader[PartEntity]):
     """Строитель сущности представления детали"""
 
     prusa_project_extension: ClassVar = "3mf"
@@ -18,10 +18,10 @@ class PartLoader(EntityLoader[Part]):
     transition_extensions: ClassVar = ExtensionsMatcher(("stp", "step", "stl", "obj"))
     """Переходные форматы деталей"""
 
-    def load(self) -> Part:
+    def load(self) -> PartEntity:
         """Создать представление детали"""
-        return Part(
-            metadata=MetadataLoader(self._path).load(),
+        return PartEntity(
+            metadata=MetadataEntityLoader(self._path).load(),
             prusa_project=self._loadPrusaProjectFile(),
             transitions=tuple(self.transition_extensions.find(self.folder(), self.name()))
         )

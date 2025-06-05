@@ -4,15 +4,15 @@
 from dataclasses import dataclass
 from typing import Sequence
 
-from projectmaster.entities.core.metadata import Metadata
-from projectmaster.entities.core.part import Part
+from projectmaster.entities.core.metadata import MetadataEntity
+from projectmaster.entities.core.part import PartEntity
 
 
 @dataclass(frozen=True, kw_only=True)
-class Unit:
+class UnitEntity:
     """Модульная единица"""
 
-    metadata: Metadata
+    metadata: MetadataEntity
     """Метаданные модуля"""
-    parts: Sequence[Part]
+    parts: Sequence[PartEntity]
     """Детали"""

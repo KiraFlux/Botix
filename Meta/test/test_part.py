@@ -1,10 +1,10 @@
 from pathlib import Path
 
-from projectmaster.entities.impl.loader.part import PartLoader
+from projectmaster.entities.impl.loader.part import PartEntityLoader
 
 root = Path("A:/Projects/OmniCore-Robotics")
 
 p = root / "Модели/Конструктив/Рамки/Рамка-V3.m3d"
 
-part = PartLoader(p).load()
+part = PartEntityLoader(p).load()
 print(part)

@@ -4,29 +4,27 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from projectmaster.attributes.impl.loader.section import SectionAttributesLoader
 from projectmaster.entities.abc.loader import EntityLoader
-from projectmaster.entities.core.section import Section
-from projectmaster.entities.impl.loader.unit import UnitLoader
+from projectmaster.entities.core.section import SectionEntity
+from projectmaster.entities.impl.loader.unit import UnitEntityLoader
 from projectmaster.tools import iterDirs
 
 
 @dataclass(frozen=True, kw_only=True)
-class SectionLoader(EntityLoader[Section]):
+class SectionEntityLoader(EntityLoader[SectionEntity]):
     """Загрузчик разделов"""
 
-    _level: int
-    """Уровень вложенности раздела"""
+    def load(self) -> SectionEntity:
+        attributes = SectionAttributesLoader(self.folder()).load()
 
-    def load(self) -> Section:
-        return Section(
+        return SectionEntity(
+            attributes=attributes,
             units=tuple(
-                UnitLoader(unit_path).load()
-                for unit_path in iterDirs(self.folder(), self._level)
+                UnitEntityLoader(unit_path).load()
+                for unit_path in iterDirs(self.folder(), attributes.level)
             )
         )
-
-    def __post_init__(self) -> None:
-        assert 0 <= self._level
 
     def folder(self) -> Path:
         return self._path

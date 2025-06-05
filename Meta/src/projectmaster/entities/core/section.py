@@ -4,12 +4,15 @@ Section
 from dataclasses import dataclass
 from typing import Sequence
 
-from projectmaster.entities.core.unit import Unit
+from projectmaster.attributes.core.section import SectionAttributes
+from projectmaster.entities.core.unit import UnitEntity
 
 
 @dataclass(frozen=True, kw_only=True)
-class Section:
+class SectionEntity:
     """Раздел"""
 
-    units: Sequence[Unit]
+    attributes: SectionAttributes
+    """Атрибуты раздела"""
+    units: Sequence[UnitEntity]
     """Модульные единицы"""

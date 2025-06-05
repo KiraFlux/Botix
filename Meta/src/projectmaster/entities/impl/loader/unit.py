@@ -3,29 +3,29 @@ from pathlib import Path
 from typing import ClassVar
 
 from projectmaster.entities.abc.loader import EntityLoader
-from projectmaster.entities.core.metadata import Metadata
-from projectmaster.entities.core.unit import Unit
-from projectmaster.entities.impl.loader.metadata import MetadataLoader
-from projectmaster.entities.impl.loader.part import PartLoader
+from projectmaster.entities.core.metadata import MetadataEntity
+from projectmaster.entities.core.unit import UnitEntity
+from projectmaster.entities.impl.loader.metadata import MetadataEntityLoader
+from projectmaster.entities.impl.loader.part import PartEntityLoader
 from projectmaster.tools import ExtensionsMatcher
 
 
-class UnitMetadataLoader(MetadataLoader):
+class UnitMetadataEntityLoader(MetadataEntityLoader):
 
     def name(self) -> str:
-        return f"{self._path.parent.name}{Metadata.parse_words_delimiter}{self._path.name}"
+        return f"{self._path.parent.name}{MetadataEntity.parse_words_delimiter}{self._path.name}"
 
 
-class UnitLoader(EntityLoader[Unit]):
+class UnitEntityLoader(EntityLoader[UnitEntity]):
     """Строитель модульных единиц"""
 
     part_extensions: ClassVar = ExtensionsMatcher(("m3d",))
 
-    def load(self) -> Unit:
-        return Unit(
-            metadata=UnitMetadataLoader(self._path).load(),
+    def load(self) -> UnitEntity:
+        return UnitEntity(
+            metadata=UnitMetadataEntityLoader(self._path).load(),
             parts=tuple(
-                PartLoader(path).load()
+                PartEntityLoader(path).load()
                 for path in self.part_extensions.find(self.folder(), "*")
             )
         )
