@@ -2,6 +2,7 @@
 Визуализация в текстовом представлении
 """
 from dataclasses import dataclass
+from typing import ClassVar
 from typing import TextIO
 
 from projectmaster.entities.abc.visitor import EntityVisitor
@@ -14,10 +15,20 @@ from projectmaster.entities.core.unit import UnitEntity
 
 @dataclass(frozen=True)
 class TextRenderEntityVisitor(EntityVisitor):
+    metadata_name_width: ClassVar = 24
+
     output: TextIO
 
+    def writeLine(self) -> None:
+        """Перенос строки"""
+        self.output.write('\n')
+
+    def writeTab(self) -> None:
+        """Отступ"""
+        self.output.write('\t')
+
     def visitMetadataEntity(self, metadata: MetadataEntity) -> None:
-        self.output.write(f"{metadata.getDisplayName()}-{metadata.getDisplayVersion()} : images({len(metadata.images)})")
+        self.output.write(f"{metadata.getEntityName():{self.metadata_name_width}} : images({len(metadata.images)})")
 
     def visitPartEntity(self, part: PartEntity) -> None:
         self.visitMetadataEntity(part.metadata)
@@ -25,7 +36,13 @@ class TextRenderEntityVisitor(EntityVisitor):
         self.output.write(f" : transitions({t}) : prusa({part.prusa_project is not None})")
 
     def visitUnitEntity(self, unit: UnitEntity) -> None:
-        pass
+        self.visitMetadataEntity(unit.metadata)
+        self.writeLine()
+
+        for part in unit.parts:
+            self.writeTab()
+            self.visitPartEntity(part)
+            self.writeLine()
 
     def visitSectionEntity(self, section: SectionEntity) -> None:
         pass
