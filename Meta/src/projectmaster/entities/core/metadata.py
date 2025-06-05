@@ -7,9 +7,12 @@ from pathlib import Path
 from typing import ClassVar
 from typing import Sequence
 
+from projectmaster.entities.abc.visitable import Visitable
+from projectmaster.entities.abc.visitor import EntityVisitor
+
 
 @dataclass(frozen=True, kw_only=True)
-class MetadataEntity:
+class MetadataEntity(Visitable):
     """Метаданные сущности"""
 
     parse_words_delimiter: ClassVar = '-'
@@ -40,3 +43,6 @@ class MetadataEntity:
         """Получить имя сущности"""
         w = tuple(self.words) + (self.getDisplayVersion(),)
         return f"{self.parse_words_delimiter.join(w)}"
+
+    def accept(self, visitor: EntityVisitor) -> None:
+        visitor.visitMetadataEntity(self)
