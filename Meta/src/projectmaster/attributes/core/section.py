@@ -5,6 +5,8 @@ from dataclasses import dataclass
 class SectionAttributes:
     """Атрибуты раздела"""
 
+    name: str
+    """Наименование раздела"""
     level: int
     """Уровень вложенности раздела"""
     desc: str

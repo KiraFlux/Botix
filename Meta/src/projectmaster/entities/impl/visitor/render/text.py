@@ -16,6 +16,7 @@ from projectmaster.entities.core.unit import UnitEntity
 @dataclass(frozen=True)
 class TextRenderEntityVisitor(EntityVisitor):
     metadata_name_width: ClassVar = 24
+    section_name_width: ClassVar = 32
 
     output: TextIO
 
@@ -45,7 +46,18 @@ class TextRenderEntityVisitor(EntityVisitor):
             self.writeLine()
 
     def visitSectionEntity(self, section: SectionEntity) -> None:
-        pass
+        self.output.write(f"{section.attributes.name:.<{self.section_name_width}} ({len(section.units)})")
+        self.writeLine()
+
+        self.writeTab()
+        self.output.write(f"{section.attributes.desc}")
+        self.writeLine()
+
+        self.writeLine()
+
+        for unit in section.units:
+            self.visitUnitEntity(unit)
+            self.writeLine()
 
     def visitProjectEntity(self, project: ProjectEntity) -> None:
         pass

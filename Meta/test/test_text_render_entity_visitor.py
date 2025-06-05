@@ -1,16 +1,14 @@
-from io import StringIO
+import sys
 from pathlib import Path
 
-from projectmaster.entities.impl.loader.unit import UnitEntityLoader
+from projectmaster.entities.impl.loader.section import SectionEntityLoader
 from projectmaster.entities.impl.visitor.render.text import TextRenderEntityVisitor
 
-path = Path(r"A:\Projects\OmniCore-Robotics\Модели\Модули\АКБ\АКБ-18650-3S\Закрытый-v1")
+path = Path(r"A:\Projects\OmniCore-Robotics\Модели\Модули")
 
-u = UnitEntityLoader(path).load()
+s = SectionEntityLoader(path).load()
 
-o = StringIO()
+o = sys.stdout
 
 v = TextRenderEntityVisitor(o)
-v.visitUnitEntity(u)
-
-print(o.getvalue())
+v.visitSectionEntity(s)
