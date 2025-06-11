@@ -47,12 +47,10 @@ class AttributesLoader[T](Loader[T], ABC):
 
 class EntityLoader[T](Loader[T], ABC):
 
-    @final
     def name(self) -> str:
         """Имя сущности"""
         return self._path.stem
 
-    @final
     def folder(self) -> Path:
         """Каталог с материалами для сущности"""
         return self._path.parent
