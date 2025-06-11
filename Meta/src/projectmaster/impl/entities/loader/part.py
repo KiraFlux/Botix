@@ -4,9 +4,9 @@ from pathlib import Path
 from typing import ClassVar
 from typing import Optional
 
-from projectmaster.entities.abc.loader import EntityLoader
-from projectmaster.entities.core.part import PartEntity
-from projectmaster.entities.impl.loader.metadata import MetadataEntityLoader
+from projectmaster.abc.entities.loader import EntityLoader
+from projectmaster.core.entities import PartEntity
+from projectmaster.impl.entities.loader.metadata import MetadataEntityLoader
 from projectmaster.tools import ExtensionsMatcher
 
 

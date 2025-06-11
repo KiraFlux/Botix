@@ -1,9 +1,9 @@
-from projectmaster.entities.abc.visitor import EntityVisitor
-from projectmaster.entities.core.metadata import MetadataEntity
-from projectmaster.entities.core.part import PartEntity
-from projectmaster.entities.core.project import ProjectEntity
-from projectmaster.entities.core.section import SectionEntity
-from projectmaster.entities.core.unit import UnitEntity
+from projectmaster.abc.entities.visitor import EntityVisitor
+from projectmaster.core.entities import MetadataEntity
+from projectmaster.core.entities import PartEntity
+from projectmaster.core.entities import ProjectEntity
+from projectmaster.core.entities import SectionEntity
+from projectmaster.core.entities import UnitEntity
 
 
 class IssueScannerEntityVisitor(EntityVisitor):

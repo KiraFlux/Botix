@@ -3,10 +3,10 @@ ProjectEntityLoader
 """
 from pathlib import Path
 
-from projectmaster.attributes.impl.loader.section import SectionAttributesLoader
-from projectmaster.entities.abc.loader import EntityLoader
-from projectmaster.entities.core.project import ProjectEntity
-from projectmaster.entities.impl.loader.section import SectionEntityLoader
+from projectmaster.impl.attributes.loader.section import SectionAttributesLoader
+from projectmaster.abc.entities.loader import EntityLoader
+from projectmaster.core.entities import ProjectEntity
+from projectmaster.impl.entities.loader.section import SectionEntityLoader
 from projectmaster.tools import iterDirs
 
 

@@ -2,11 +2,11 @@
 from pathlib import Path
 from typing import ClassVar
 
-from projectmaster.entities.abc.loader import EntityLoader
-from projectmaster.entities.core.metadata import MetadataEntity
-from projectmaster.entities.core.unit import UnitEntity
-from projectmaster.entities.impl.loader.metadata import MetadataEntityLoader
-from projectmaster.entities.impl.loader.part import PartEntityLoader
+from projectmaster.abc.entities.loader import EntityLoader
+from projectmaster.core.entities import MetadataEntity
+from projectmaster.core.entities import UnitEntity
+from projectmaster.impl.entities.loader.metadata import MetadataEntityLoader
+from projectmaster.impl.entities.loader.part import PartEntityLoader
 from projectmaster.tools import ExtensionsMatcher
 
 

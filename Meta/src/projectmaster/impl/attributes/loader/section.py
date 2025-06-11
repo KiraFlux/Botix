@@ -1,8 +1,8 @@
 from typing import Any
 from typing import Mapping
 
-from projectmaster.attributes.abc.loader import AttributesLoader
-from projectmaster.attributes.core.section import SectionAttributes
+from projectmaster.abc.attributes.loader import AttributesLoader
+from projectmaster.core.attributes import SectionAttributes
 
 
 class SectionAttributesLoader(AttributesLoader[SectionAttributes]):

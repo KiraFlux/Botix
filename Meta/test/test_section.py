@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from projectmaster.attributes.impl.loader.section import SectionAttributesLoader
-from projectmaster.entities.impl.loader.section import SectionEntityLoader
+from projectmaster.impl.attributes.loader.section import SectionAttributesLoader
+from projectmaster.impl.entities.loader.section import SectionEntityLoader
 
 root = Path("A:/Projects/OmniCore-Robotics") / "Модели"
 

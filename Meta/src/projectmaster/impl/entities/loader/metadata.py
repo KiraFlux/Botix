@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import ClassVar
 
-from projectmaster.entities.abc.loader import EntityLoader
-from projectmaster.entities.core.metadata import MetadataEntity
+from projectmaster.abc.entities.loader import EntityLoader
+from projectmaster.core.entities import MetadataEntity
 from projectmaster.tools import ExtensionsMatcher
 
 

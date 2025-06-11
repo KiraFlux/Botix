@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 from dataclasses import field
 from typing import ClassVar
-from typing import ClassVar
 from typing import TextIO
 
 

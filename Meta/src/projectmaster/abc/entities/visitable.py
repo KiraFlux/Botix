@@ -1,7 +1,7 @@
 from abc import ABC
 from abc import abstractmethod
 
-from projectmaster.entities.abc.visitor import EntityVisitor
+from projectmaster.abc.entities.visitor import EntityVisitor
 
 
 class Visitable(ABC):
