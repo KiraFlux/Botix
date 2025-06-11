@@ -65,18 +65,17 @@ class PartEntityLoader(EntityLoader[PartEntity]):
         return prusa_path if prusa_path.exists() else None
 
 
-class ProjectEntityLoader(EntityLoader[ProjectEntity]):
-    def load(self) -> ProjectEntity:
-        return ProjectEntity(
-            sections=tuple(
-                SectionEntityLoader(p).load()
-                for p in iterDirs(self.folder())
-                if SectionAttributesLoader(self.folder() / p).exists()
-            )
+class SectionAttributesLoader(AttributesLoader[SectionAttributes]):
+
+    def parse(self, data: Mapping[str, Any]) -> SectionAttributes:
+        return SectionAttributes(
+            name=self._path.name,
+            level=int(data['level']),
+            desc=str(data['desc'])
         )
 
-    def folder(self) -> Path:
-        return self._path
+    def getSuffix(self) -> str:
+        return "section"
 
 
 class SectionEntityLoader(EntityLoader[SectionEntity]):
@@ -124,14 +123,15 @@ class UnitEntityLoader(EntityLoader[UnitEntity]):
         return self._path
 
 
-class SectionAttributesLoader(AttributesLoader[SectionAttributes]):
-
-    def parse(self, data: Mapping[str, Any]) -> SectionAttributes:
-        return SectionAttributes(
-            name=self._path.name,
-            level=int(data['level']),
-            desc=str(data['desc'])
+class ProjectEntityLoader(EntityLoader[ProjectEntity]):
+    def load(self) -> ProjectEntity:
+        return ProjectEntity(
+            sections=tuple(
+                SectionEntityLoader(p).load()
+                for p in iterDirs(self.folder())
+                if SectionAttributesLoader(self.folder() / p).exists()
+            )
         )
 
-    def getSuffix(self) -> str:
-        return "section"
+    def folder(self) -> Path:
+        return self._path
