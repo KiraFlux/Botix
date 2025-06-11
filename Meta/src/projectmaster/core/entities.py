@@ -6,8 +6,8 @@ from typing import ClassVar
 from typing import Optional
 from typing import Sequence
 
-from projectmaster.abc.entities.visitable import Visitable
-from projectmaster.abc.entities.visitor import EntityVisitor
+from projectmaster.abc.visitor import Visitable
+from projectmaster.abc.visitor import EntityVisitor
 from projectmaster.core.attributes import SectionAttributes
 
 

@@ -1,4 +1,4 @@
-from projectmaster.abc.entities.visitor import EntityVisitor
+from projectmaster.abc.visitor import EntityVisitor
 from projectmaster.core.entities import MetadataEntity
 from projectmaster.core.entities import PartEntity
 from projectmaster.core.entities import ProjectEntity

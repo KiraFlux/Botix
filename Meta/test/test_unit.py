@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from projectmaster.impl.entities.loaders import UnitEntityLoader
+from projectmaster.impl.loaders import UnitEntityLoader
 
 root = Path("A:/Projects/OmniCore-Robotics")
 

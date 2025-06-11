@@ -24,3 +24,11 @@ class EntityVisitor(ABC):
     @abstractmethod
     def visitUnitEntity(self, unit) -> None:
         """Посетить сущность модульной единицы"""
+
+
+class Visitable(ABC):
+    """Посещаемый"""
+
+    @abstractmethod
+    def accept(self, visitor: EntityVisitor) -> None:
+        """Принять посетителя"""

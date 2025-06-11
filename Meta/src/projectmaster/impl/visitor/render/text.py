@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from typing import ClassVar
 
 from engines.text import IntendTextIOAdapter
-from projectmaster.abc.entities.visitor import EntityVisitor
+from projectmaster.abc.visitor import EntityVisitor
 from projectmaster.core.entities import MetadataEntity
 from projectmaster.core.entities import PartEntity
 from projectmaster.core.entities import ProjectEntity

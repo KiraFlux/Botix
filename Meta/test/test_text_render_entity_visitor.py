@@ -2,8 +2,8 @@ import sys
 from pathlib import Path
 
 from engines.text import IntendTextIOAdapter
-from projectmaster.impl.entities.loaders import ProjectEntityLoader
-from projectmaster.impl.entities.visitor.render.text import TextRenderEntityVisitor
+from projectmaster.impl.loaders import ProjectEntityLoader
+from projectmaster.impl.visitor.render import TextRenderEntityVisitor
 
 path = Path(r"A:\Projects\OmniCore-Robotics\Модели")
 

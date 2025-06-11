@@ -1,16 +1,19 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 from typing import ClassVar
+from typing import Mapping
 from typing import Optional
 
+from projectmaster.abc.loaders import AttributesLoader
 from projectmaster.abc.loaders import EntityLoader
+from projectmaster.core.attributes import SectionAttributes
 from projectmaster.core.entities import MetadataEntity
 from projectmaster.core.entities import PartEntity
 from projectmaster.core.entities import ProjectEntity
 from projectmaster.core.entities import SectionEntity
 from projectmaster.core.entities import UnitEntity
-from projectmaster.impl.attributes.loader.section import SectionAttributesLoader
 from projectmaster.tools import ExtensionsMatcher
 from projectmaster.tools import iterDirs
 
@@ -119,3 +122,16 @@ class UnitEntityLoader(EntityLoader[UnitEntity]):
 
     def folder(self) -> Path:
         return self._path
+
+
+class SectionAttributesLoader(AttributesLoader[SectionAttributes]):
+
+    def parse(self, data: Mapping[str, Any]) -> SectionAttributes:
+        return SectionAttributes(
+            name=self._path.name,
+            level=int(data['level']),
+            desc=str(data['desc'])
+        )
+
+    def getSuffix(self) -> str:
+        return "section"
