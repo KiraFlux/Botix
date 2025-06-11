@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import ClassVar
 from typing import Optional
 
-from projectmaster.abc.entities.loader import EntityLoader
+from projectmaster.abc.loaders import EntityLoader
 from projectmaster.core.entities import PartEntity
 from projectmaster.impl.entities.loader.metadata import MetadataEntityLoader
 from projectmaster.tools import ExtensionsMatcher

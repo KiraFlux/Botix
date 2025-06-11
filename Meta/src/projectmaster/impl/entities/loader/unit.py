@@ -2,7 +2,7 @@
 from pathlib import Path
 from typing import ClassVar
 
-from projectmaster.abc.entities.loader import EntityLoader
+from projectmaster.abc.loaders import EntityLoader
 from projectmaster.core.entities import MetadataEntity
 from projectmaster.core.entities import UnitEntity
 from projectmaster.impl.entities.loader.metadata import MetadataEntityLoader

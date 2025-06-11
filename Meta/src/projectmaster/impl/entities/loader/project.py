@@ -4,7 +4,7 @@ ProjectEntityLoader
 from pathlib import Path
 
 from projectmaster.impl.attributes.loader.section import SectionAttributesLoader
-from projectmaster.abc.entities.loader import EntityLoader
+from projectmaster.abc.loaders import EntityLoader
 from projectmaster.core.entities import ProjectEntity
 from projectmaster.impl.entities.loader.section import SectionEntityLoader
 from projectmaster.tools import iterDirs
