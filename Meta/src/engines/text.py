@@ -31,6 +31,13 @@ class IntendWritingMethod(WritingMethod):
         return self._intend_string + s
 
 
+class MarkedListWritingMethod(WritingMethod):
+    _mark: ClassVar = ' - '
+
+    def apply(self, s: str = "") -> str:
+        return self._mark + s
+
+
 @dataclass
 class FormatTextIOAdapter:
     """Адаптер над TextIO для реализации записи с форматом"""
@@ -57,3 +64,5 @@ class FormatTextIOAdapter:
             s = method.apply(s)
 
         self._source.write(s)
+
+        print(self._methods)
