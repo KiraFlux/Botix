@@ -1,4 +1,3 @@
-import sys
 from pathlib import Path
 
 from engines.text import FormatTextIOAdapter
@@ -9,6 +8,6 @@ path = Path(r"A:\Projects\OmniCore-Robotics\Модели")
 
 p = ProjectEntityLoader(path).load()
 
-v = TextRenderEntityVisitor(FormatTextIOAdapter(sys.stdout))
-
-v.visitProjectEntity(p)
+with open("./out.md", "wt") as f:
+    v = TextRenderEntityVisitor(FormatTextIOAdapter(f))
+    v.visitProjectEntity(p)

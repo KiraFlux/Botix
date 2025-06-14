@@ -36,7 +36,13 @@ class NumericListWritingMethod(WritingMethod):
 
     def apply(self, s: str) -> str:
         self._index += 1
-        return f"{self._index:02} {s}"
+        return f"{self._index}. {s}"
+
+
+class QuoteWritingMethod(WritingMethod):
+
+    def apply(self, s: str) -> str:
+        return '> ' + s
 
 
 @dataclass
@@ -63,14 +69,15 @@ class FormatTextIOAdapter:
     def write(self, s: str = None) -> None:
         """Записать"""
 
-        i = len(self._methods)
+        if s:
+            i = len(self._methods)
 
-        for _ in range(i - 1):
-            self._source.write(self._intend_string)
+            for _ in range(i - 1):
+                self._source.write(self._intend_string)
 
-        if i > 0:
-            s = self._methods[-1].apply(s)
+            if i > 0:
+                s = self._methods[-1].apply(s)
 
-        self._source.write(s)
+            self._source.write(s)
 
         self._source.write('\n')
