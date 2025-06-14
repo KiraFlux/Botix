@@ -1,20 +1,18 @@
 import sys
 
 from engines.text import FormatTextIOAdapter
-from engines.text import IntendWritingMethod
 from engines.text import MarkedListWritingMethod
+from engines.text import NumericListWritingMethod
 
 f = FormatTextIOAdapter(sys.stdout)
 
-f.write('1')
+f.write('Нумерованный список с отступом')
 
-with f.use(IntendWritingMethod()):
-    f.write('2')
+with f.use(NumericListWritingMethod()):
+    f.write('Элемент списка')
 
     with f.use(MarkedListWritingMethod()):
-        f.write('3')
-        f.write('4')
+        f.write('Элемент списка')
+        f.write('Элемент списка')
 
-    f.write('5')
-
-f.write('6')
+    f.write('Элемент списка')

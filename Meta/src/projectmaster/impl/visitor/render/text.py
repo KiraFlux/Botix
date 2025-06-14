@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from typing import ClassVar
 
 from engines.text import FormatTextIOAdapter
-from engines.text import IntendWritingMethod
+from engines.text import MockWritingMethod
 from projectmaster.abc.visitor import EntityVisitor
 from projectmaster.core.entities import MetadataEntity
 from projectmaster.core.entities import PartEntity
@@ -32,7 +32,7 @@ class TextRenderEntityVisitor(EntityVisitor):
     def visitPartEntity(self, part: PartEntity) -> None:
         self.visitMetadataEntity(part.metadata)
 
-        with self.out.use(IntendWritingMethod()):
+        with self.out.use(MockWritingMethod()):
             s = str()
 
             if part.prusa_project is not None:
@@ -51,19 +51,19 @@ class TextRenderEntityVisitor(EntityVisitor):
         self.visitMetadataEntity(unit.metadata)
 
         for part in unit.parts:
-            with self.out.use(IntendWritingMethod()):
+            with self.out.use(MockWritingMethod()):
                 self.visitPartEntity(part)
 
     def visitSectionEntity(self, section: SectionEntity) -> None:
         self.out.write(f"{section.attributes.name} ({len(section.units)})")
 
-        with self.out.use(IntendWritingMethod()):
+        with self.out.use(MockWritingMethod()):
             self.out.write(f"{section.attributes.desc}")
 
         self.out.write()
 
         for unit in section.units:
-            with self.out.use(IntendWritingMethod()):
+            with self.out.use(MockWritingMethod()):
                 self.visitUnitEntity(unit)
                 self.out.write()
 
