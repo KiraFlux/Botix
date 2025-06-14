@@ -6,8 +6,6 @@ from dataclasses import dataclass
 from typing import ClassVar
 
 from engines.text import FormatTextIOAdapter
-from engines.text import MarkedListWritingMethod
-from engines.text import NumericListWritingMethod
 from projectmaster.abc.visitor import EntityVisitor
 from projectmaster.core.entities import MetadataEntity
 from projectmaster.core.entities import PartEntity
@@ -27,10 +25,10 @@ class TextRenderEntityVisitor(EntityVisitor):
         self.out.write(f"{metadata.getEntityName():{self.metadata_name_width}}")
 
         if metadata.images:
-            with self.out.use(MarkedListWritingMethod()):
+            with self.out.markedList():
                 self.out.write(f"Изображения: ({len(metadata.images)})")
 
-                with self.out.use(NumericListWritingMethod()):
+                with self.out.numericList():
                     for i in metadata.images:
                         self.out.write(i.name)
 
@@ -38,10 +36,10 @@ class TextRenderEntityVisitor(EntityVisitor):
         self.visitMetadataEntity(part.metadata)
 
         if part.prusa_project or part.transitions:
-            with self.out.use(MarkedListWritingMethod()):
+            with self.out.markedList():
                 self.out.write("Обменные форматы")
 
-                with self.out.use(MarkedListWritingMethod()):
+                with self.out.markedList():
                     if part.prusa_project is not None:
                         self.out.write("prusa")
 
@@ -51,19 +49,20 @@ class TextRenderEntityVisitor(EntityVisitor):
     def visitUnitEntity(self, unit: UnitEntity) -> None:
         self.visitMetadataEntity(unit.metadata)
 
-        with self.out.use(NumericListWritingMethod()):
+        with self.out.numericList():
             for part in unit.parts:
                 self.visitPartEntity(part)
 
     def visitSectionEntity(self, section: SectionEntity) -> None:
         self.out.write(f"{section.attributes.name} ({len(section.units)})")
 
-        with self.out.use(MarkedListWritingMethod()):
+        with self.out.markedList():
             self.out.write(f"{section.attributes.desc}")
+            self.out.write(f"Уровень: {section.attributes.level}")
 
         self.out.write()
 
-        with self.out.use(NumericListWritingMethod()):
+        with self.out.numericList():
             for unit in section.units:
                 self.visitUnitEntity(unit)
                 self.out.write()

@@ -9,7 +9,7 @@ from typing import MutableSequence
 from typing import TextIO
 
 
-class WritingMethod(ABC):
+class _WritingMethod(ABC):
     """Стратегия записи"""
 
     @abstractmethod
@@ -17,13 +17,13 @@ class WritingMethod(ABC):
         """Записать строку"""
 
 
-class MockWritingMethod(WritingMethod):
+class _MockWritingMethod(_WritingMethod):
 
     def apply(self, s: str) -> str:
         return s
 
 
-class MarkedListWritingMethod(WritingMethod):
+class _MarkedListWritingMethod(_WritingMethod):
     _mark: ClassVar = '- '
 
     def apply(self, s: str) -> str:
@@ -31,18 +31,12 @@ class MarkedListWritingMethod(WritingMethod):
 
 
 @dataclass
-class NumericListWritingMethod(WritingMethod):
+class _NumericListWritingMethod(_WritingMethod):
     _index: int = field(init=False, default=0)
 
     def apply(self, s: str) -> str:
         self._index += 1
         return f"{self._index}. {s}"
-
-
-class QuoteWritingMethod(WritingMethod):
-
-    def apply(self, s: str) -> str:
-        return '> ' + s
 
 
 @dataclass
@@ -53,18 +47,24 @@ class FormatTextIOAdapter:
     _intend_string: ClassVar = ' ' * _intend
 
     _source: TextIO
-    _methods: MutableSequence[WritingMethod] = field(init=False, default_factory=list)
+    _methods: MutableSequence[_WritingMethod] = field(init=False, default_factory=list)
 
-    def use(self, method: WritingMethod) -> FormatTextIOAdapter:
+    def use(self, method: _WritingMethod) -> FormatTextIOAdapter:
         """Использовать следующий метод записи"""
         self._methods.append(method)
         return self
 
-    def __enter__(self) -> None:
-        pass
+    def tab(self) -> FormatTextIOAdapter:
+        """Отступ с табуляцией"""
+        return self.use(_MockWritingMethod())
 
-    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
-        self._methods.pop()
+    def markedList(self) -> FormatTextIOAdapter:
+        """Маркированный список"""
+        return self.use(_MarkedListWritingMethod())
+
+    def numericList(self) -> FormatTextIOAdapter:
+        """Нумерованный список"""
+        return self.use(_NumericListWritingMethod())
 
     def write(self, s: str = None) -> None:
         """Записать"""
@@ -81,3 +81,9 @@ class FormatTextIOAdapter:
             self._source.write(s)
 
         self._source.write('\n')
+
+    def __enter__(self) -> None:
+        pass
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        self._methods.pop()
