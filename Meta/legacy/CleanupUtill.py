@@ -18,7 +18,7 @@ from typing import Optional
 from typing import Sequence
 from typing import TextIO
 
-_WORK_DIR = Path(__file__).parent.absolute().parent
+_WORK_DIR = Path(r"A:\Projects\OmniCore-Robotics")
 
 
 def _get_workdir_size_bytes() -> int:
