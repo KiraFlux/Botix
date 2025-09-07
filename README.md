@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>OmniCore Robotics</h1>
+  <h1>Botix</h1>
   <p>Открытая модульная платформа для создания мобильных роботов</p>
 </div>
 
