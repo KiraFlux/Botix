@@ -2,7 +2,7 @@
 
 # MidiQ Всош v2
 
-`Сборка 2025.09.1`
+`Сборка 2025.09.10`
 
 </div>
 
@@ -17,8 +17,8 @@
 
 ## Основной репозиторий
 
-[https://github.com/JamahaW/OmniCore-Robotics](https://github.com/JamahaW/OmniCore-Robotics)
+[https://github.com/KiraFlux/Botix](https://github.com/KiraFlux/Botix)
 
 ## Лицензия
 
-**GNU GPL v3.0** [LICENSE](https://github.com/JamahaW/OmniCore-Robotics/blob/main/LICENSE)
+**GNU GPL v3.0** [LICENSE](https://github.com/KiraFlux/Botix/blob/main/LICENSE)
