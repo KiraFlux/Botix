@@ -4,7 +4,7 @@ from projectmaster.impl.loaders import UnitEntityLoader
 
 root = Path("A:/Projects/Botix")
 
-p = root / "Модели/Модули/АКБ/АКБ-18650-3S/Закрытый-v1"
+p = root / "Модели/Модули/Манипуляторы/Манипулятор-2DOF-548"
 
 unit = UnitEntityLoader(p).load()
 print(unit)

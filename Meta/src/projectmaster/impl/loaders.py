@@ -49,7 +49,9 @@ class PartEntityLoader(EntityLoader[PartEntity]):
 
     prusa_project_extension: ClassVar = "3mf"
     """Расширение проекта Prusa"""
-    transition_extensions: ClassVar = ExtensionsMatcher(("stp", "step", "stl", "obj"))
+    kompas_blueprint_extension: ClassVar = "cdw"
+    """Расширение Чертежа Компас 3D"""
+    transition_extensions: ClassVar = ExtensionsMatcher(("stp", "step", "stl", "obj", "dxf"))
     """Переходные форматы деталей"""
 
     def load(self) -> PartEntity:
@@ -60,9 +62,15 @@ class PartEntityLoader(EntityLoader[PartEntity]):
             transitions=tuple(self.transition_extensions.find(self.folder(), self.name()))
         )
 
+    def _loadProjectFile(self, extension: str) -> Optional[Path]:
+        project_path = self.folder() / f"{self.name()}.{extension}"
+        return project_path if project_path.exists() else None
+
     def _loadPrusaProjectFile(self) -> Optional[Path]:
-        prusa_path = self.folder() / f"{self.name()}.{self.prusa_project_extension}"
-        return prusa_path if prusa_path.exists() else None
+        return self._loadProjectFile(self.prusa_project_extension)
+
+    def _loadKompasBlueprintFile(self) -> Optional[Path]:
+        return self._loadProjectFile(self.kompas_blueprint_extension)
 
 
 class SectionAttributesLoader(AttributesLoader[SectionAttributes]):
