@@ -2,9 +2,9 @@ from pathlib import Path
 
 from projectmaster.impl.loaders import PartEntityLoader
 
-root = Path("A:/Projects/OmniCore-Robotics")
+root = Path("A:/Projects/Botix")
 
-p = root / "Модели/Конструктив/Рамки/Рамка-V3.m3d"
+p = root / "Модели/Конструктив/Рамки/Рамка-v4.m3d"
 
 part = PartEntityLoader(p).load()
 print(part)

@@ -4,7 +4,7 @@ from engines.text import FormatTextIOAdapter
 from projectmaster.impl.loaders import ProjectEntityLoader
 from projectmaster.impl.visitor.render.text import TextRenderEntityVisitor
 
-path = Path(r"A:\Projects\OmniCore-Robotics\Модели")
+path = Path(r"A:\Projects\Botix\Модели")
 
 p = ProjectEntityLoader(path).load()
 

@@ -2,7 +2,7 @@ from pathlib import Path
 
 from projectmaster.tools import iterDirs
 
-root = Path("A:/Projects/OmniCore-Robotics") / "Модели"
+root = Path("A:/Projects/Botix") / "Модели"
 
 dirs = iterDirs(root, 1)
 

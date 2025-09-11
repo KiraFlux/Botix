@@ -27,6 +27,7 @@ class Issue:
 
     @classmethod
     def fromMetadata(cls, metadata: MetadataEntity, problem_message: str) -> Issue:
+        """Создать проблему по метаданным"""
         return cls(
             entity_path=metadata.path,
             entity_name=metadata.getEntityName(),

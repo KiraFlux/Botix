@@ -2,7 +2,7 @@ from pathlib import Path
 
 from projectmaster.impl.loaders import UnitEntityLoader
 
-root = Path("A:/Projects/OmniCore-Robotics")
+root = Path("A:/Projects/Botix")
 
 p = root / "Модели/Модули/АКБ/АКБ-18650-3S/Закрытый-v1"
 
