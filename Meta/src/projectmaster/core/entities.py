@@ -9,6 +9,7 @@ from typing import Sequence
 from projectmaster.abc.visitor import EntityVisitor
 from projectmaster.abc.visitor import Visitable
 from projectmaster.core.attributes import SectionAttributes
+from projectmaster.core.attributes import UnitAttributes
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -95,6 +96,8 @@ class UnitEntity(Visitable):
     """Метаданные модуля"""
     parts: Sequence[PartEntity]
     """Детали"""
+    attributes: Optional[UnitAttributes]
+    """Атрибуты"""
 
     def accept(self, visitor: EntityVisitor) -> None:
         visitor.visitUnitEntity(self)

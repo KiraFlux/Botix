@@ -9,14 +9,14 @@ from typing import Sequence
 class ExtensionsMatcher:
     """Сопоставляет расширения файлов"""
 
-    _extensions: Sequence[str]
+    extensions: Sequence[str]
     """Целевые расширения файлов"""
 
     def find(self, folder: Path, filename_pattern: str) -> Iterable[Path]:
         """Получить все пути к файлам по шаблону имени с данными расширениями"""
         patterns = (
             f"{filename_pattern}.{e}"
-            for e in self._extensions
+            for e in self.extensions
         )
         return chain(*(map(folder.rglob, patterns)))
 

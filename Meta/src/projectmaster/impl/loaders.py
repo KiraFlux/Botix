@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from itertools import chain
 from pathlib import Path
 from typing import Any
 from typing import ClassVar
@@ -9,6 +10,7 @@ from typing import Optional
 from projectmaster.abc.loaders import AttributesLoader
 from projectmaster.abc.loaders import EntityLoader
 from projectmaster.core.attributes import SectionAttributes
+from projectmaster.core.attributes import UnitAttributes
 from projectmaster.core.entities import MetadataEntity
 from projectmaster.core.entities import PartEntity
 from projectmaster.core.entities import ProjectEntity
@@ -40,7 +42,13 @@ class MetadataEntityLoader(EntityLoader[MetadataEntity]):
             path=self._path,
             words=words,
             version=v,
-            images=tuple(self.image_extensions.find(self.folder(), f"{self.name()}{MetadataEntity.parse_words_delimiter}*"))
+            images=tuple(chain(
+                (
+                    path
+                    for e in self.image_extensions.extensions
+                    if (path := Path(self.folder() / f"{self.name()}.{e}")).exists()
+                ), self.image_extensions.find(self.folder(), f"{self.name()}{MetadataEntity.parse_words_delimiter}*")
+            ))
         )
 
 
@@ -49,8 +57,6 @@ class PartEntityLoader(EntityLoader[PartEntity]):
 
     prusa_project_extension: ClassVar = "3mf"
     """Расширение проекта Prusa"""
-    kompas_blueprint_extension: ClassVar = "cdw"
-    """Расширение Чертежа Компас 3D"""
     transition_extensions: ClassVar = ExtensionsMatcher(("stp", "step", "stl", "obj", "dxf"))
     """Переходные форматы деталей"""
 
@@ -68,9 +74,6 @@ class PartEntityLoader(EntityLoader[PartEntity]):
 
     def _loadPrusaProjectFile(self) -> Optional[Path]:
         return self._loadProjectFile(self.prusa_project_extension)
-
-    def _loadKompasBlueprintFile(self) -> Optional[Path]:
-        return self._loadProjectFile(self.kompas_blueprint_extension)
 
 
 class SectionAttributesLoader(AttributesLoader[SectionAttributes]):
@@ -104,6 +107,17 @@ class SectionEntityLoader(EntityLoader[SectionEntity]):
         return self._path
 
 
+class UnitAttributesLoader(AttributesLoader[UnitAttributes]):
+
+    def getSuffix(self) -> str:
+        return "unit"
+
+    def parse(self, data: Mapping[str, Any]) -> UnitAttributes:
+        return UnitAttributes(
+            part_count_map=data['parts']
+        )
+
+
 class UnitMetadataEntityLoader(MetadataEntityLoader):
 
     def name(self) -> str:
@@ -111,7 +125,7 @@ class UnitMetadataEntityLoader(MetadataEntityLoader):
 
 
 class UnitEntityLoader(EntityLoader[UnitEntity]):
-    """Строитель модульных единиц"""
+    """Загрузчик модульных единиц"""
 
     part_extensions: ClassVar = ExtensionsMatcher(("m3d",))
 
@@ -121,7 +135,8 @@ class UnitEntityLoader(EntityLoader[UnitEntity]):
             parts=tuple(
                 PartEntityLoader(path).load()
                 for path in self.part_extensions.find(self.folder(), "*")
-            )
+            ),
+            attributes=self._tryLoadAttributes()
         )
 
     def name(self) -> str:
@@ -129,6 +144,14 @@ class UnitEntityLoader(EntityLoader[UnitEntity]):
 
     def folder(self) -> Path:
         return self._path
+
+    def _tryLoadAttributes(self) -> Optional[UnitAttributes]:
+        a = UnitAttributesLoader(self.folder())
+
+        if a.exists():
+            return a.load()
+
+        return None
 
 
 class ProjectEntityLoader(EntityLoader[ProjectEntity]):

@@ -2,10 +2,9 @@ from pathlib import Path
 
 from projectmaster.impl.loaders import UnitEntityLoader
 
-root = Path("A:/Projects/Botix")
+root = Path("A:/Projects/Botix/Meta/test/Mock")
 
-p = root / "Модели/Модули/Манипуляторы/Манипулятор-2DOF-548"
+p = root / "Модели/Шасси/Тест/Вариант-v2"
 
 unit = UnitEntityLoader(p).load()
 print(unit)
-print(unit.metadata)
