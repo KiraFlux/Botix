@@ -16,6 +16,7 @@ from projectmaster.core.entities import PartEntity
 from projectmaster.core.entities import ProjectEntity
 from projectmaster.core.entities import SectionEntity
 from projectmaster.core.entities import UnitEntity
+from projectmaster.core.key import PartKey
 from projectmaster.tools import ExtensionsMatcher
 from projectmaster.tools import iterDirs
 
@@ -114,7 +115,10 @@ class UnitAttributesLoader(AttributesLoader[UnitAttributes]):
 
     def parse(self, data: Mapping[str, Any]) -> UnitAttributes:
         return UnitAttributes(
-            part_count_map=data['parts']
+            part_count_map={
+                PartKey(key): count
+                for key, count in data['parts'].items()
+            }
         )
 
 
@@ -134,7 +138,11 @@ class UnitEntityLoader(EntityLoader[UnitEntity]):
             metadata=UnitMetadataEntityLoader(self._path).load(),
             parts=tuple(
                 PartEntityLoader(path).load()
-                for path in self.part_extensions.find(self.folder(), "*")
+                for path in
+                chain(
+                    self.part_extensions.find(self.folder(), "*"),
+                    self.part_extensions.find(self.folder().parent, "*"),
+                )
             ),
             attributes=self._tryLoadAttributes()
         )

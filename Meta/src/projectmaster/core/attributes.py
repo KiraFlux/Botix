@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Mapping
 
+from projectmaster.core.key import PartKey
+
 
 @dataclass(frozen=True, kw_only=True)
 class SectionAttributes:
@@ -21,9 +23,9 @@ class SectionAttributes:
 class UnitAttributes:
     """Атрибуты сборочной единицы"""
 
-    part_count_map: Mapping[str, int]
+    part_count_map: Mapping[PartKey, int]
     """Кол-во деталей"""
 
     def __post_init__(self) -> None:
         for part, count in self.part_count_map.items():
-            assert count >= 0, f"{part} Должно иметь натуральное кол-во значений"
+            assert count > 0, f"{part} Должно иметь натуральное кол-во значений"
