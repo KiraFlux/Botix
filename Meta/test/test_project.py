@@ -1,11 +1,20 @@
 from pathlib import Path
 
+from projectmaster.core.registries import UnitEntityRegistry
 from projectmaster.impl.loaders import ProjectEntityLoader
 
-root = Path("A:/Projects/Botix")
 
-p = root / "Модели"
+def _test() -> None:
+    root = Path("A:/Projects/Botix/Meta/test/Mock")
 
-p1 = ProjectEntityLoader(p).load()
+    project = ProjectEntityLoader(root / "Модели").load()
 
-print(p1)
+    unit_registry = UnitEntityRegistry(project)
+
+    print("\n".join(map(str, unit_registry.getAll().keys())))
+
+    return
+
+
+if __name__ == "__main__":
+    _test()

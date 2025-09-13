@@ -7,6 +7,9 @@ class Key:
     _key: str
     """Значение ключа"""
 
+    def __str__(self) -> str:
+        return self._key
+
 
 @dataclass(frozen=True)
 class UnitKey(Key):

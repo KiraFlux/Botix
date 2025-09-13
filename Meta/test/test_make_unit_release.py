@@ -13,12 +13,27 @@ def _date() -> str:
     return datetime.now().strftime("%Y.%m.%d")
 
 
-def _releaseUnit(unit: UnitEntity, output: Path) -> None:
+def _makePartAssemblyFiles(release_folder: Path, part: PartEntity, count: int) -> None:
+    def _nameTransformer(s: str) -> str:
+        return f"{count}x--{s}"
+
+    for transition in part.transitions:
+        shutil.copyfile(transition, release_folder / _nameTransformer(transition.name))
+
+    for image in part.metadata.images:
+        shutil.copyfile(image, release_folder / image.name)
+
+    if part.prusa_project:
+        shutil.copyfile(part.prusa_project, release_folder / _nameTransformer(part.prusa_project.name))
+
+
+def _makeUnitAssemblyFiles(output_folder: Path, unit: UnitEntity) -> None:
     assert unit.attributes is not None, f"Attributes (.unit) must exists"
+
     part_registry = PartEntityRegistry(unit)
 
-    release_folder = output / unit.metadata.getEntityName()
-    archive_path = output / f"{unit.metadata.getEntityName()}--{_date()}"
+    release_folder = output_folder / unit.metadata.getEntityName()
+    archive_path = output_folder / f"{unit.metadata.getEntityName()}--{_date()}"
 
     if release_folder.exists():
         shutil.rmtree(release_folder)
@@ -31,21 +46,10 @@ def _releaseUnit(unit: UnitEntity, output: Path) -> None:
     for part_key, count in unit.attributes.part_count_map.items():
         part: Optional[PartEntity] = part_registry.get(part_key)
 
-        if part is None:
+        if part is not None:
+            _makePartAssemblyFiles(release_folder, part, count)
+        else:
             print(f"cannot find: {part_key}")
-            continue
-
-        def _nameTransformer(s: str) -> str:
-            return f"{count}x--{s}"
-
-        for transition in part.transitions:
-            shutil.copyfile(transition, release_folder / _nameTransformer(transition.name))
-
-        for image in part.metadata.images:
-            shutil.copyfile(image, release_folder / image.name)
-
-        if part.prusa_project:
-            shutil.copyfile(part.prusa_project, release_folder / _nameTransformer(part.prusa_project.name))
 
     shutil.make_archive(
         base_name=str(archive_path),
@@ -64,7 +68,7 @@ def _main() -> None:
 
     unit = UnitEntityLoader(p).load()
     print(unit.attributes)
-    _releaseUnit(unit, root / "Производство")
+    _makeUnitAssemblyFiles(root / "Производство", unit)
 
     return
 

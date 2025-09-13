@@ -23,6 +23,10 @@ class EntityRegistry[K: Key, T](ABC):
         """Получить значение"""
         return self.__entities.get(key)
 
+    def getAll(self) -> Mapping[K, T]:
+        """Получить вид на данные реестра"""
+        return self.__entities
+
 
 class UnitEntityRegistry(EntityRegistry[UnitKey, UnitEntity]):
     """Реестр сборочных единиц"""
