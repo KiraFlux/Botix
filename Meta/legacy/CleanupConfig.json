@@ -1,10 +1,4 @@
 {
-  "./__Archive": {
-    "patterns": [
-      "*.zip",
-      "*.7z"
-    ]
-  },
   "./__TempTrash": {
     "patterns": [
       "*.log",

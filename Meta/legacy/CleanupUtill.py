@@ -18,7 +18,7 @@ from typing import Optional
 from typing import Sequence
 from typing import TextIO
 
-_WORK_DIR = Path(r"A:\Projects\OmniCore-Robotics")
+_WORK_DIR = Path(r"A:\Projects\Botix")
 
 
 def _get_workdir_size_bytes() -> int:
