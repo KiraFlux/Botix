@@ -158,7 +158,7 @@ def _makeUnitAssemblyFiles(output_folder: Path, unit: UnitEntity, parts_registry
 
     current_date = _date()
 
-    with open(unit_release_folder / "README.md", "wt", encoding="cp1251") as out:
+    with open(unit_release_folder / "README.md", "wt", encoding="utf-8") as out:
 
         out.write(_makeHeader(unit, current_date))
 
