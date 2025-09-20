@@ -56,8 +56,10 @@ class MetadataEntityLoader(EntityLoader[MetadataEntity]):
 class PartEntityLoader(EntityLoader[PartEntity]):
     """Строитель сущности представления детали"""
 
-    prusa_project_extension: ClassVar = "3mf"
+    prusa_project_extension: ClassVar = "prusa.3mf"
     """Расширение проекта Prusa"""
+    orca_project_extension: ClassVar = "orca.3mf"
+    """Расширение проекта Orca"""
     transition_extensions: ClassVar = ExtensionsMatcher(("stp", "step", "stl", "obj", "dxf"))
     """Переходные форматы деталей"""
 
@@ -65,16 +67,14 @@ class PartEntityLoader(EntityLoader[PartEntity]):
         """Создать представление детали"""
         return PartEntity(
             metadata=MetadataEntityLoader(self._path).load(),
-            prusa_project=self._loadPrusaProjectFile(),
-            transitions=tuple(self.transition_extensions.find(self.folder(), self.name()))
+            transitions=tuple(self.transition_extensions.find(self.folder(), self.name())),
+            prusa_project=self._tryLoadProjectFile(self.prusa_project_extension),
+            orca_project=self._tryLoadProjectFile(self.orca_project_extension)
         )
 
-    def _loadProjectFile(self, extension: str) -> Optional[Path]:
+    def _tryLoadProjectFile(self, extension: str) -> Optional[Path]:
         project_path = self.folder() / f"{self.name()}.{extension}"
         return project_path if project_path.exists() else None
-
-    def _loadPrusaProjectFile(self) -> Optional[Path]:
-        return self._loadProjectFile(self.prusa_project_extension)
 
 
 class SectionAttributesLoader(AttributesLoader[SectionAttributes]):

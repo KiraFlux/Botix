@@ -55,10 +55,12 @@ class PartEntity(Visitable):
 
     metadata: MetadataEntity
     """Метаданные данной детали"""
-    prusa_project: Optional[Path]
-    """Путь к проекту Prusa данной детали"""
     transitions: Sequence[Path]
     """Пути к файлам переходных форматов данной детали"""
+    prusa_project: Optional[Path]
+    """Путь к проекту Prusa Slicer данной детали"""
+    orca_project: Optional[Path]
+    """Путь к проекту Orca Slicer данной детали"""
 
     def accept(self, visitor: EntityVisitor) -> None:
         visitor.visitPartEntity(self)
