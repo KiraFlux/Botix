@@ -6,18 +6,21 @@ from typing import Optional
 
 from botix.core.entities import PartEntity
 from botix.core.entities import UnitEntity
+from botix.core.key import UnitKey
 from botix.core.registries import PartEntityRegistry
-from botix.impl.loaders import UnitEntityLoader
+from botix.core.registries import PartsSectionRegistry
+from botix.core.registries import UnitEntityRegistry
+from botix.impl.loaders import ProjectEntityLoader
 
 
 def _date() -> str:
     return datetime.now().strftime("%Y.%m.%d")
 
 
-def _makeUnitAssemblyFiles(output_folder: Path, unit: UnitEntity) -> None:
+def _makeUnitAssemblyFiles(output_folder: Path, unit: UnitEntity, parts_registry: PartsSectionRegistry) -> None:
     assert unit.attributes is not None, f"Attributes (.unit) must exists"
 
-    part_registry = PartEntityRegistry(unit)
+    part_registry = PartEntityRegistry(unit, parts_registry)
 
     unit_release_folder = output_folder / unit.metadata.getEntityName()
 
@@ -67,13 +70,15 @@ def _makeUnitAssemblyFiles(output_folder: Path, unit: UnitEntity) -> None:
 
 
 def _main() -> None:
-    root = Path("A:/Projects/Botix/Meta/test/Mock")
+    root = Path("A:/Projects/Botix/Meta/test/Mock/Модели")
 
-    p = root / "Модели/Шасси/Тест/Вариант-v2"
+    project = ProjectEntityLoader(root).load()
+    units = UnitEntityRegistry(project)
+    parts = PartsSectionRegistry(project)
 
-    unit = UnitEntityLoader(p).load()
-    print(unit.attributes)
-    _makeUnitAssemblyFiles(root / "Производство", unit)
+    unit = units.get(UnitKey("Шасси/Тест-Вариант-v2"))
+
+    _makeUnitAssemblyFiles(root / "Производство", unit, parts)
 
     return
 
