@@ -87,7 +87,7 @@ def _makeHeader(unit: UnitEntity, current_date: str) -> str:
 
 def _makePartBlock(part: PartEntity, count: int, name_transformer: Callable[[str], str]) -> str:
     images_html = '\n'.join(
-        f'<td>{_img(name_transformer(i.name), 180)}</td>'
+        f'<td>{_img(i.name, 180)}</td>'
         for i in part.metadata.images
     )
 
@@ -185,7 +185,7 @@ def _makeUnitAssemblyFiles(output_folder: Path, unit: UnitEntity, parts_registry
                     _move(transition, _nameTransformer)
 
                 for image in part.metadata.images:
-                    _move(image, _nameTransformer)
+                    _move(image)
 
                 if part.prusa_project:
                     _move(part.prusa_project, _nameTransformer)
@@ -211,9 +211,9 @@ def _main() -> None:
 
     project = ProjectEntityLoader(root / "Модели").load()
     units = UnitEntityRegistry(project)
-    print('\n'.join(map(str, units.getAll().keys())))
+    # print('\n'.join(map(str, units.getAll().keys())))
     parts = PartsSectionRegistry(project)
-    print('\n'.join(map(str, units.getAll().keys())))
+    # print('\n'.join(map(str, units.getAll().keys())))
 
     unit = units.get(UnitKey("Шасси/MidiQ-Всош-v2"))
 

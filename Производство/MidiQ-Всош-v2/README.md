@@ -26,8 +26,8 @@
 
 <table>
 <tr valign="top">
-<td><img src="1x--Платформа-v1-0.png" height="180"></td>
-<td><img src="1x--Платформа-v1-1.png" height="180"></td>
+<td><img src="Платформа-v1-0.png" height="180"></td>
+<td><img src="Платформа-v1-1.png" height="180"></td>
 </tr>
 </table>
 
@@ -41,8 +41,8 @@
 
 <table>
 <tr valign="top">
-<td><img src="2x--Стенка-Боковая-v1-0.png" height="180"></td>
-<td><img src="2x--Стенка-Боковая-v1-1.png" height="180"></td>
+<td><img src="Стенка-Боковая-v1-0.png" height="180"></td>
+<td><img src="Стенка-Боковая-v1-1.png" height="180"></td>
 </tr>
 </table>
 
@@ -56,8 +56,8 @@
 
 <table>
 <tr valign="top">
-<td><img src="1x--Стенка-Верхняя-v1-0.png" height="180"></td>
-<td><img src="1x--Стенка-Верхняя-v1-1.png" height="180"></td>
+<td><img src="Стенка-Верхняя-v1-0.png" height="180"></td>
+<td><img src="Стенка-Верхняя-v1-1.png" height="180"></td>
 </tr>
 </table>
 
@@ -71,8 +71,8 @@
 
 <table>
 <tr valign="top">
-<td><img src="1x--Стенка-Задняя-v2-0.png" height="180"></td>
-<td><img src="1x--Стенка-Задняя-v2-1.png" height="180"></td>
+<td><img src="Стенка-Задняя-v2-0.png" height="180"></td>
+<td><img src="Стенка-Задняя-v2-1.png" height="180"></td>
 </tr>
 </table>
 
@@ -86,8 +86,8 @@
 
 <table>
 <tr valign="top">
-<td><img src="2x--Рамка-v4-0.png" height="180"></td>
-<td><img src="2x--Рамка-v4-1.png" height="180"></td>
+<td><img src="Рамка-v4-0.png" height="180"></td>
+<td><img src="Рамка-v4-1.png" height="180"></td>
 </tr>
 </table>
 
