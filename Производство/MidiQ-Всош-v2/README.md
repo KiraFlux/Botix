@@ -1,104 +1,104 @@
 
-# [MidiQ Всош v2](.)
+# [MidiQ Р’СЃРѕС€ v2](.)
 
-[Выпуск от 2025.09.20](.) [`zip`](./../MidiQ-Всош-v2--2025.09.20.zip) [`step`](MidiQ-Всош-v2.stp)
+[Р’С‹РїСѓСЃРє РѕС‚ 2025.09.20](.) [`zip`](./../MidiQ-Р’СЃРѕС€-v2--2025.09.20.zip) [`step`](MidiQ-Р’СЃРѕС€-v2.stp)
 
 
 <table>
 <tr valign="top">
 <td>
-<img src="MidiQ-Всош-v2-0.jpg" height="360">
+<img src="MidiQ-Р’СЃРѕС€-v2-0.jpg" height="360">
 </td>
 <td>
-<img src="MidiQ-Всош-v2-1.jpg" height="180"><br>
-<img src="MidiQ-Всош-v2-2.jpg" height="180"><br>
+<img src="MidiQ-Р’СЃРѕС€-v2-1.jpg" height="180"><br>
+<img src="MidiQ-Р’СЃРѕС€-v2-2.jpg" height="180"><br>
 </td>
 </tr>
 </table>
     
 
-# Детали
+# Р”РµС‚Р°Р»Рё
 
 
 <blockquote>
 
-## Платформа - 1 шт.
+## РџР»Р°С‚С„РѕСЂРјР° - 1 С€С‚.
 
 <table>
 <tr valign="top">
-<td><img src="1x--Платформа-v1-0.png" height="180"></td>
-<td><img src="1x--Платформа-v1-1.png" height="180"></td>
+<td><img src="1x--РџР»Р°С‚С„РѕСЂРјР°-v1-0.png" height="180"></td>
+<td><img src="1x--РџР»Р°С‚С„РѕСЂРјР°-v1-1.png" height="180"></td>
 </tr>
 </table>
 
-[`.stp`](1x--Платформа-v1.stp) [`.dxf`](1x--Платформа-v1.dxf) [`.3mf (PrusaSlicer)`](1x--Платформа-v1.prusa.3mf)
+[`.stp`](1x--РџР»Р°С‚С„РѕСЂРјР°-v1.stp) [`.dxf`](1x--РџР»Р°С‚С„РѕСЂРјР°-v1.dxf) [`.3mf (PrusaSlicer)`](1x--РџР»Р°С‚С„РѕСЂРјР°-v1.prusa.3mf)
 
 </blockquote>
 
 <blockquote>
 
-## Стенка Боковая - 2 шт.
+## РЎС‚РµРЅРєР° Р‘РѕРєРѕРІР°СЏ - 2 С€С‚.
 
 <table>
 <tr valign="top">
-<td><img src="2x--Стенка-Боковая-v1-0.png" height="180"></td>
-<td><img src="2x--Стенка-Боковая-v1-1.png" height="180"></td>
+<td><img src="2x--РЎС‚РµРЅРєР°-Р‘РѕРєРѕРІР°СЏ-v1-0.png" height="180"></td>
+<td><img src="2x--РЎС‚РµРЅРєР°-Р‘РѕРєРѕРІР°СЏ-v1-1.png" height="180"></td>
 </tr>
 </table>
 
-[`.stp`](2x--Стенка-Боковая-v1.stp) [`.dxf`](2x--Стенка-Боковая-v1.dxf)
+[`.stp`](2x--РЎС‚РµРЅРєР°-Р‘РѕРєРѕРІР°СЏ-v1.stp) [`.dxf`](2x--РЎС‚РµРЅРєР°-Р‘РѕРєРѕРІР°СЏ-v1.dxf)
 
 </blockquote>
 
 <blockquote>
 
-## Стенка Верхняя - 1 шт.
+## РЎС‚РµРЅРєР° Р’РµСЂС…РЅСЏСЏ - 1 С€С‚.
 
 <table>
 <tr valign="top">
-<td><img src="1x--Стенка-Верхняя-v1-0.png" height="180"></td>
-<td><img src="1x--Стенка-Верхняя-v1-1.png" height="180"></td>
+<td><img src="1x--РЎС‚РµРЅРєР°-Р’РµСЂС…РЅСЏСЏ-v1-0.png" height="180"></td>
+<td><img src="1x--РЎС‚РµРЅРєР°-Р’РµСЂС…РЅСЏСЏ-v1-1.png" height="180"></td>
 </tr>
 </table>
 
-[`.stp`](1x--Стенка-Верхняя-v1.stp) [`.dxf`](1x--Стенка-Верхняя-v1.dxf)
+[`.stp`](1x--РЎС‚РµРЅРєР°-Р’РµСЂС…РЅСЏСЏ-v1.stp) [`.dxf`](1x--РЎС‚РµРЅРєР°-Р’РµСЂС…РЅСЏСЏ-v1.dxf)
 
 </blockquote>
 
 <blockquote>
 
-## Стенка Задняя - 1 шт.
+## РЎС‚РµРЅРєР° Р—Р°РґРЅСЏСЏ - 1 С€С‚.
 
 <table>
 <tr valign="top">
-<td><img src="1x--Стенка-Задняя-v2-0.png" height="180"></td>
-<td><img src="1x--Стенка-Задняя-v2-1.png" height="180"></td>
+<td><img src="1x--РЎС‚РµРЅРєР°-Р—Р°РґРЅСЏСЏ-v2-0.png" height="180"></td>
+<td><img src="1x--РЎС‚РµРЅРєР°-Р—Р°РґРЅСЏСЏ-v2-1.png" height="180"></td>
 </tr>
 </table>
 
-[`.stp`](1x--Стенка-Задняя-v2.stp) [`.dxf`](1x--Стенка-Задняя-v2.dxf) [`.3mf (PrusaSlicer)`](1x--Стенка-Задняя-v2.prusa.3mf)
+[`.stp`](1x--РЎС‚РµРЅРєР°-Р—Р°РґРЅСЏСЏ-v2.stp) [`.dxf`](1x--РЎС‚РµРЅРєР°-Р—Р°РґРЅСЏСЏ-v2.dxf) [`.3mf (PrusaSlicer)`](1x--РЎС‚РµРЅРєР°-Р—Р°РґРЅСЏСЏ-v2.prusa.3mf)
 
 </blockquote>
 
 <blockquote>
 
-## Рамка - 2 шт.
+## Р Р°РјРєР° - 2 С€С‚.
 
 <table>
 <tr valign="top">
-<td><img src="2x--Рамка-v4-0.png" height="180"></td>
-<td><img src="2x--Рамка-v4-1.png" height="180"></td>
+<td><img src="2x--Р Р°РјРєР°-v4-0.png" height="180"></td>
+<td><img src="2x--Р Р°РјРєР°-v4-1.png" height="180"></td>
 </tr>
 </table>
 
-[`.stp`](2x--Рамка-v4.stp) [`.dxf`](2x--Рамка-v4.dxf) [`.3mf (PrusaSlicer)`](2x--Рамка-v4.prusa.3mf)
+[`.stp`](2x--Р Р°РјРєР°-v4.stp) [`.dxf`](2x--Р Р°РјРєР°-v4.dxf) [`.3mf (PrusaSlicer)`](2x--Р Р°РјРєР°-v4.prusa.3mf)
 
 </blockquote>
 
 ---
 
 <sub>
-Файл сгенерирован инструментами проекта.
+Р¤Р°Р№Р» СЃРіРµРЅРµСЂРёСЂРѕРІР°РЅ РёРЅСЃС‚СЂСѓРјРµРЅС‚Р°РјРё РїСЂРѕРµРєС‚Р°.
 
 [LICENCE](https://github.com/KiraFlux/Botix/blob/main/LICENSE)
 
