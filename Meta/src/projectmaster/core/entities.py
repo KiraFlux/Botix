@@ -54,11 +54,11 @@ class PartEntity(Visitable):
     """Деталь"""
 
     metadata: MetadataEntity
-    """Метаданные"""
+    """Метаданные данной детали"""
     prusa_project: Optional[Path]
-    """Путь к проекту Prusa этой детали"""
+    """Путь к проекту Prusa данной детали"""
     transitions: Sequence[Path]
-    """Пути к файлам переходных форматов"""
+    """Пути к файлам переходных форматов данной детали"""
 
     def accept(self, visitor: EntityVisitor) -> None:
         visitor.visitPartEntity(self)
@@ -69,7 +69,7 @@ class ProjectEntity(Visitable):
     """Сущность проекта"""
 
     sections: Sequence[SectionEntity]
-    """Разделы сущностей"""
+    """Входящие в этот проект разделы сборочных единиц"""
 
     def accept(self, visitor: EntityVisitor) -> None:
         visitor.visitProjectEntity(self)
@@ -82,7 +82,7 @@ class SectionEntity(Visitable):
     attributes: SectionAttributes
     """Атрибуты раздела"""
     units: Sequence[UnitEntity]
-    """Модульные единицы"""
+    """Сборочные единицы данного раздела"""
 
     def accept(self, visitor: EntityVisitor) -> None:
         visitor.visitSectionEntity(self)
@@ -90,14 +90,14 @@ class SectionEntity(Visitable):
 
 @dataclass(frozen=True, kw_only=True)
 class UnitEntity(Visitable):
-    """Модульная единица"""
+    """Сборочная единица"""
 
     metadata: MetadataEntity
-    """Метаданные модуля"""
+    """Метаданные сборочной единицы"""
     parts: Sequence[PartEntity]
-    """Детали"""
+    """Входящие в состав детали"""
     attributes: Optional[UnitAttributes]
-    """Атрибуты"""
+    """Атрибуты сборочной единицы"""
 
     def accept(self, visitor: EntityVisitor) -> None:
         visitor.visitUnitEntity(self)

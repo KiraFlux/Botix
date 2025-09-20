@@ -11,7 +11,7 @@ class SectionAttributes:
     name: str
     """Наименование раздела"""
     level: int
-    """Уровень вложенности раздела"""
+    """Уровень вложенности поиска сущностей в данном разделе"""
     desc: str
     """Описание раздела"""
 
@@ -24,7 +24,7 @@ class UnitAttributes:
     """Атрибуты сборочной единицы"""
 
     part_count_map: Mapping[PartKey, int]
-    """Кол-во деталей"""
+    """Спецификация дубликатов деталей в данной сборочной единице"""
 
     def __post_init__(self) -> None:
         for part, count in self.part_count_map.items():
