@@ -10,7 +10,7 @@ from botix.abc.visitor import EntityVisitor
 from botix.core.entities import MetadataEntity
 from botix.core.entities import PartEntity
 from botix.core.entities import ProjectEntity
-from botix.core.entities import SectionEntity
+from botix.core.entities import UnitsSectionEntity
 from botix.core.entities import UnitEntity
 
 
@@ -83,10 +83,10 @@ class IssueScannerEntityVisitor(EntityVisitor):
         for p in unit.parts:
             self.visitPartEntity(p)
 
-    def visitSectionEntity(self, section: SectionEntity) -> None:
+    def visitUnitsSectionEntity(self, section: UnitsSectionEntity) -> None:
         for u in section.units:
             self.visitUnitEntity(u)
 
     def visitProjectEntity(self, project: ProjectEntity) -> None:
-        for s in project.sections:
-            self.visitSectionEntity(s)
+        for s in project.units_sections:
+            self.visitUnitsSectionEntity(s)

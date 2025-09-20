@@ -5,13 +5,26 @@ from botix.core.key import PartKey
 
 
 @dataclass(frozen=True, kw_only=True)
-class SectionAttributes:
-    """Атрибуты раздела"""
+class PartsSectionAttributes:
+    """Атрибуты раздела общих деталей"""
 
     name: str
     """Наименование раздела"""
     level: int
-    """Уровень вложенности поиска сущностей в данном разделе"""
+    """Уровень поиска деталей в данном разделе"""
+
+    def __post_init__(self) -> None:
+        assert self.level >= 0
+
+
+@dataclass(frozen=True, kw_only=True)
+class UnitsSectionAttributes:
+    """Атрибуты раздела сборочных единиц"""
+
+    name: str
+    """Наименование раздела"""
+    level: int
+    """Уровень поиска сборочных единиц в данном разделе"""
     desc: str
     """Описание раздела"""
 

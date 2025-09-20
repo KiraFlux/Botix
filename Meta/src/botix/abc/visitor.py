@@ -14,16 +14,20 @@ class EntityVisitor(ABC):
         """Посетить сущность детали"""
 
     @abstractmethod
-    def visitProjectEntity(self, project) -> None:
-        """Посетить сущность проекта"""
-
-    @abstractmethod
-    def visitSectionEntity(self, section) -> None:
-        """Посетить сущность раздела"""
+    def visitPartsEntity(self, parts_section) -> None:
+        """Посетить раздел деталей"""
 
     @abstractmethod
     def visitUnitEntity(self, unit) -> None:
         """Посетить сущность модульной единицы"""
+
+    @abstractmethod
+    def visitUnitsSectionEntity(self, units_section) -> None:
+        """Посетить сущность раздела сборочных единиц"""
+
+    @abstractmethod
+    def visitProjectEntity(self, project) -> None:
+        """Посетить сущность проекта"""
 
 
 class Visitable(ABC):

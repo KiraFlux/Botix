@@ -8,8 +8,9 @@ from typing import Sequence
 
 from botix.abc.visitor import EntityVisitor
 from botix.abc.visitor import Visitable
-from botix.core.attributes import SectionAttributes
+from botix.core.attributes import PartsSectionAttributes
 from botix.core.attributes import UnitAttributes
+from botix.core.attributes import UnitsSectionAttributes
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -67,30 +68,6 @@ class PartEntity(Visitable):
 
 
 @dataclass(frozen=True, kw_only=True)
-class ProjectEntity(Visitable):
-    """Сущность проекта"""
-
-    sections: Sequence[SectionEntity]
-    """Входящие в этот проект разделы сборочных единиц"""
-
-    def accept(self, visitor: EntityVisitor) -> None:
-        visitor.visitProjectEntity(self)
-
-
-@dataclass(frozen=True, kw_only=True)
-class SectionEntity(Visitable):
-    """Раздел"""
-
-    attributes: SectionAttributes
-    """Атрибуты раздела"""
-    units: Sequence[UnitEntity]
-    """Сборочные единицы данного раздела"""
-
-    def accept(self, visitor: EntityVisitor) -> None:
-        visitor.visitSectionEntity(self)
-
-
-@dataclass(frozen=True, kw_only=True)
 class UnitEntity(Visitable):
     """Сборочная единица"""
 
@@ -105,3 +82,42 @@ class UnitEntity(Visitable):
 
     def accept(self, visitor: EntityVisitor) -> None:
         visitor.visitUnitEntity(self)
+
+
+@dataclass(frozen=True, kw_only=True)
+class UnitsSectionEntity(Visitable):
+    """Раздел сборочных единиц"""
+
+    attributes: UnitsSectionAttributes
+    """Атрибуты данного раздела сборочных единиц"""
+    units: Sequence[UnitEntity]
+    """Сборочные единицы данного раздела"""
+
+    def accept(self, visitor: EntityVisitor) -> None:
+        visitor.visitUnitsSectionEntity(self)
+
+
+@dataclass(frozen=True, kw_only=True)
+class PartsSectionEntity(Visitable):
+    """Раздел общих деталей"""
+
+    attributes: PartsSectionAttributes
+    """Атрибуты данного раздела общих деталей"""
+    parts: Sequence[PartEntity]
+    """Детали данного раздела"""
+
+    def accept(self, visitor: EntityVisitor) -> None:
+        visitor.visitPartsEntity(self)
+
+
+@dataclass(frozen=True, kw_only=True)
+class ProjectEntity(Visitable):
+    """Сущность проекта"""
+
+    units_sections: Sequence[UnitsSectionEntity]
+    """Входящие в данный проект разделы сборочных единиц"""
+    parts_sections: Sequence[PartsSectionEntity]
+    """Входящие в данный проект разделы общих деталей"""
+
+    def accept(self, visitor: EntityVisitor) -> None:
+        visitor.visitProjectEntity(self)

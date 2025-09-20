@@ -6,7 +6,7 @@ from typing import Optional
 
 from botix.core.entities import PartEntity
 from botix.core.entities import ProjectEntity
-from botix.core.entities import SectionEntity
+from botix.core.entities import UnitsSectionEntity
 from botix.core.entities import UnitEntity
 from botix.core.key import Key
 from botix.core.key import PartKey
@@ -35,13 +35,13 @@ class UnitEntityRegistry(EntityRegistry[UnitKey, UnitEntity]):
         super().__init__(
             {
                 UnitKey(self._makeKeyString(section, unit)): unit
-                for section in project.sections
+                for section in project.units_sections
                 for unit in section.units
             }
         )
 
     @staticmethod
-    def _makeKeyString(section: SectionEntity, unit: UnitEntity) -> str:
+    def _makeKeyString(section: UnitsSectionEntity, unit: UnitEntity) -> str:
         return f"{section.attributes.name}/{unit.metadata.getEntityName()}"
 
 

@@ -9,20 +9,22 @@ from typing import Optional
 
 from botix.abc.loaders import AttributesLoader
 from botix.abc.loaders import EntityLoader
-from botix.core.attributes import SectionAttributes
+from botix.core.attributes import PartsSectionAttributes
 from botix.core.attributes import UnitAttributes
+from botix.core.attributes import UnitsSectionAttributes
 from botix.core.entities import MetadataEntity
 from botix.core.entities import PartEntity
+from botix.core.entities import PartsSectionEntity
 from botix.core.entities import ProjectEntity
-from botix.core.entities import SectionEntity
 from botix.core.entities import UnitEntity
+from botix.core.entities import UnitsSectionEntity
 from botix.core.key import PartKey
 from botix.tools import ExtensionsMatcher
 from botix.tools import iterDirs
 
 
 class MetadataEntityLoader(EntityLoader[MetadataEntity]):
-    """Загрузчик метаданных"""
+    """Загрузчик Метаданных"""
 
     default_version: ClassVar = 1
     """Версия, если префикс отсутствует"""
@@ -54,7 +56,7 @@ class MetadataEntityLoader(EntityLoader[MetadataEntity]):
 
 
 class PartEntityLoader(EntityLoader[PartEntity]):
-    """Строитель сущности представления детали"""
+    """Загрузчик сущности представления детали"""
 
     prusa_project_extension: ClassVar = "prusa.3mf"
     """Расширение проекта Prusa"""
@@ -77,26 +79,60 @@ class PartEntityLoader(EntityLoader[PartEntity]):
         return project_path if project_path.exists() else None
 
 
-class SectionAttributesLoader(AttributesLoader[SectionAttributes]):
+class PartsSectionAttributesLoader(AttributesLoader[PartsSectionAttributes]):
+    """Загрузчик атрибутов раздела общих деталей"""
 
-    def parse(self, data: Mapping[str, Any]) -> SectionAttributes:
-        return SectionAttributes(
+    def parse(self, data: Mapping[str, Any]) -> PartsSectionAttributes:
+        return PartsSectionAttributes(
+            name=self._path.name,
+            level=int(data['level'])
+        )
+
+    def getSuffix(self) -> str:
+        return "parts-section"
+
+
+class PartsSectionEntityLoader(EntityLoader[PartsSectionEntity]):
+    """Загрузчик раздела общих деталей"""
+
+    part_extensions: ClassVar = ExtensionsMatcher(("m3d",))
+
+    def load(self) -> PartsSectionEntity:
+        attributes = PartsSectionAttributesLoader(self.folder()).load()
+        return PartsSectionEntity(
+            attributes=attributes,
+            parts=tuple(
+                PartEntityLoader(part_path).load()
+                for category_path in iterDirs(self.folder(), attributes.level)
+                for part_path in self.part_extensions.find(category_path, "*")
+            )
+        )
+
+    def folder(self) -> Path:
+        return self._path
+
+
+class UnitsSectionAttributesLoader(AttributesLoader[UnitsSectionAttributes]):
+    """Загрузчик атрибутов сборочной единиц"""
+
+    def parse(self, data: Mapping[str, Any]) -> UnitsSectionAttributes:
+        return UnitsSectionAttributes(
             name=self._path.name,
             level=int(data['level']),
             desc=str(data['desc'])
         )
 
     def getSuffix(self) -> str:
-        return "section"
+        return "units-section"
 
 
-class SectionEntityLoader(EntityLoader[SectionEntity]):
-    """Загрузчик разделов"""
+class UnitsSectionEntityLoader(EntityLoader[UnitsSectionEntity]):
+    """Загрузчик разделов сборочных единиц"""
 
-    def load(self) -> SectionEntity:
-        attributes = SectionAttributesLoader(self.folder()).load()
+    def load(self) -> UnitsSectionEntity:
+        attributes = UnitsSectionAttributesLoader(self.folder()).load()
 
-        return SectionEntity(
+        return UnitsSectionEntity(
             attributes=attributes,
             units=tuple(
                 UnitEntityLoader(unit_path).load()
@@ -109,6 +145,7 @@ class SectionEntityLoader(EntityLoader[SectionEntity]):
 
 
 class UnitAttributesLoader(AttributesLoader[UnitAttributes]):
+    """Загрузчик атрибутов сборочной единицы"""
 
     def getSuffix(self) -> str:
         return "unit"
@@ -123,13 +160,14 @@ class UnitAttributesLoader(AttributesLoader[UnitAttributes]):
 
 
 class UnitMetadataEntityLoader(MetadataEntityLoader):
+    """Метаданные сборочной единицы"""
 
     def name(self) -> str:
         return f"{self._path.parent.name}{MetadataEntity.parse_words_delimiter}{self._path.name}"
 
 
 class UnitEntityLoader(EntityLoader[UnitEntity]):
-    """Загрузчик модульных единиц"""
+    """Загрузчик сборочных единиц"""
 
     part_extensions: ClassVar = ExtensionsMatcher(("m3d",))
     transition_assembly_extensions: ClassVar = ExtensionsMatcher(("stp", "step"))
@@ -166,13 +204,22 @@ class UnitEntityLoader(EntityLoader[UnitEntity]):
 
 
 class ProjectEntityLoader(EntityLoader[ProjectEntity]):
+    """Загрузчик проекта"""
+
     def load(self) -> ProjectEntity:
+        units_sections = list()
+        parts_sections = list()
+
+        for p in iterDirs(self.folder()):
+            if UnitsSectionAttributesLoader(p).exists():
+                units_sections.append(UnitsSectionEntityLoader(p).load())
+
+            if PartsSectionAttributesLoader(p).exists():
+                parts_sections.append(PartsSectionEntityLoader(p).load())
+
         return ProjectEntity(
-            sections=tuple(
-                SectionEntityLoader(p).load()
-                for p in iterDirs(self.folder())
-                if SectionAttributesLoader(self.folder() / p).exists()
-            )
+            units_sections=units_sections,
+            parts_sections=parts_sections
         )
 
     def folder(self) -> Path:

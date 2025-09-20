@@ -9,9 +9,10 @@ def _test() -> None:
 
     project = ProjectEntityLoader(root / "Модели").load()
 
-    unit_registry = UnitEntityRegistry(project)
+    # unit_registry = UnitEntityRegistry(project)
 
-    print("\n".join(map(str, unit_registry.getAll().keys())))
+    # print("\n".join(map(str, project.units_sections)))
+    print("\n".join(map(str, project.parts_sections)))
 
     return
 

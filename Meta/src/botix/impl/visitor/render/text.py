@@ -10,7 +10,7 @@ from botix.abc.visitor import EntityVisitor
 from botix.core.entities import MetadataEntity
 from botix.core.entities import PartEntity
 from botix.core.entities import ProjectEntity
-from botix.core.entities import SectionEntity
+from botix.core.entities import UnitsSectionEntity
 from botix.core.entities import UnitEntity
 
 
@@ -53,7 +53,7 @@ class TextRenderEntityVisitor(EntityVisitor):
             for part in unit.parts:
                 self.visitPartEntity(part)
 
-    def visitSectionEntity(self, section: SectionEntity) -> None:
+    def visitUnitsSectionEntity(self, section: UnitsSectionEntity) -> None:
         self.out.write(f"{section.attributes.name} ({len(section.units)})")
 
         with self.out.markedList():
@@ -68,9 +68,9 @@ class TextRenderEntityVisitor(EntityVisitor):
                 self.out.write()
 
     def visitProjectEntity(self, project: ProjectEntity) -> None:
-        self.out.write(f"РАЗДЕЛЫ: ({len(project.sections)})")
+        self.out.write(f"РАЗДЕЛЫ: ({len(project.units_sections)})")
         self.out.write()
 
-        for section in project.sections:
-            self.visitSectionEntity(section)
+        for section in project.units_sections:
+            self.visitUnitsSectionEntity(section)
             self.out.write()
