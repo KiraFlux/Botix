@@ -6,12 +6,12 @@ from pathlib import Path
 from typing import MutableSequence
 
 from engines.text import FormatTextIOAdapter
-from projectmaster.abc.visitor import EntityVisitor
-from projectmaster.core.entities import MetadataEntity
-from projectmaster.core.entities import PartEntity
-from projectmaster.core.entities import ProjectEntity
-from projectmaster.core.entities import SectionEntity
-from projectmaster.core.entities import UnitEntity
+from botix.abc.visitor import EntityVisitor
+from botix.core.entities import MetadataEntity
+from botix.core.entities import PartEntity
+from botix.core.entities import ProjectEntity
+from botix.core.entities import SectionEntity
+from botix.core.entities import UnitEntity
 
 
 @dataclass(frozen=True)

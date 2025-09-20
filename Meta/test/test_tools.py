@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from projectmaster.tools import iterDirs
+from botix.tools import iterDirs
 
 root = Path("A:/Projects/Botix") / "Модели"
 

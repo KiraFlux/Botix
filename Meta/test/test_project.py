@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from projectmaster.core.registries import UnitEntityRegistry
-from projectmaster.impl.loaders import ProjectEntityLoader
+from botix.core.registries import UnitEntityRegistry
+from botix.impl.loaders import ProjectEntityLoader
 
 
 def _test() -> None:

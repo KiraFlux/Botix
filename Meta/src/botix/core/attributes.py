@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Mapping
 
-from projectmaster.core.key import PartKey
+from botix.core.key import PartKey
 
 
 @dataclass(frozen=True, kw_only=True)

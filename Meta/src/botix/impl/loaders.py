@@ -7,18 +7,18 @@ from typing import ClassVar
 from typing import Mapping
 from typing import Optional
 
-from projectmaster.abc.loaders import AttributesLoader
-from projectmaster.abc.loaders import EntityLoader
-from projectmaster.core.attributes import SectionAttributes
-from projectmaster.core.attributes import UnitAttributes
-from projectmaster.core.entities import MetadataEntity
-from projectmaster.core.entities import PartEntity
-from projectmaster.core.entities import ProjectEntity
-from projectmaster.core.entities import SectionEntity
-from projectmaster.core.entities import UnitEntity
-from projectmaster.core.key import PartKey
-from projectmaster.tools import ExtensionsMatcher
-from projectmaster.tools import iterDirs
+from botix.abc.loaders import AttributesLoader
+from botix.abc.loaders import EntityLoader
+from botix.core.attributes import SectionAttributes
+from botix.core.attributes import UnitAttributes
+from botix.core.entities import MetadataEntity
+from botix.core.entities import PartEntity
+from botix.core.entities import ProjectEntity
+from botix.core.entities import SectionEntity
+from botix.core.entities import UnitEntity
+from botix.core.key import PartKey
+from botix.tools import ExtensionsMatcher
+from botix.tools import iterDirs
 
 
 class MetadataEntityLoader(EntityLoader[MetadataEntity]):

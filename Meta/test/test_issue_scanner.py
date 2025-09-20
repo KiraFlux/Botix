@@ -2,8 +2,8 @@ import sys
 from pathlib import Path
 
 from engines.text import FormatTextIOAdapter
-from projectmaster.impl.loaders import ProjectEntityLoader
-from projectmaster.impl.visitor.scanner.issue import IssueScannerEntityVisitor
+from botix.impl.loaders import ProjectEntityLoader
+from botix.impl.visitor.scanner.issue import IssueScannerEntityVisitor
 
 path = Path(r"A:\Projects\Botix\Модели")
 

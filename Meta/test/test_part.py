@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from projectmaster.impl.loaders import PartEntityLoader
+from botix.impl.loaders import PartEntityLoader
 
 root = Path("A:/Projects/Botix")
 

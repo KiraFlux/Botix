@@ -6,10 +6,10 @@ from typing import ClassVar
 from typing import Optional
 from typing import Sequence
 
-from projectmaster.abc.visitor import EntityVisitor
-from projectmaster.abc.visitor import Visitable
-from projectmaster.core.attributes import SectionAttributes
-from projectmaster.core.attributes import UnitAttributes
+from botix.abc.visitor import EntityVisitor
+from botix.abc.visitor import Visitable
+from botix.core.attributes import SectionAttributes
+from botix.core.attributes import UnitAttributes
 
 
 @dataclass(frozen=True, kw_only=True)

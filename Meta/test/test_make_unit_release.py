@@ -3,10 +3,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
-from projectmaster.core.entities import PartEntity
-from projectmaster.core.entities import UnitEntity
-from projectmaster.core.registries import PartEntityRegistry
-from projectmaster.impl.loaders import UnitEntityLoader
+from botix.core.entities import PartEntity
+from botix.core.entities import UnitEntity
+from botix.core.registries import PartEntityRegistry
+from botix.impl.loaders import UnitEntityLoader
 
 
 def _date() -> str:

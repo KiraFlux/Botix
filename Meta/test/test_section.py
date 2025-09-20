@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from projectmaster.impl.loaders import SectionAttributesLoader
-from projectmaster.impl.loaders import SectionEntityLoader
+from botix.impl.loaders import SectionAttributesLoader
+from botix.impl.loaders import SectionEntityLoader
 
 root = Path("A:/Projects/Botix") / "Модели"
 

@@ -4,13 +4,13 @@ from abc import ABC
 from typing import Mapping
 from typing import Optional
 
-from projectmaster.core.entities import PartEntity
-from projectmaster.core.entities import ProjectEntity
-from projectmaster.core.entities import SectionEntity
-from projectmaster.core.entities import UnitEntity
-from projectmaster.core.key import Key
-from projectmaster.core.key import PartKey
-from projectmaster.core.key import UnitKey
+from botix.core.entities import PartEntity
+from botix.core.entities import ProjectEntity
+from botix.core.entities import SectionEntity
+from botix.core.entities import UnitEntity
+from botix.core.key import Key
+from botix.core.key import PartKey
+from botix.core.key import UnitKey
 
 
 class EntityRegistry[K: Key, T](ABC):
