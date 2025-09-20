@@ -94,6 +94,8 @@ class UnitEntity(Visitable):
 
     metadata: MetadataEntity
     """Метаданные сборочной единицы"""
+    transition_assembly: Optional[Path]
+    """Путь к файлу сборки в переходном формате"""
     parts: Sequence[PartEntity]
     """Входящие в состав детали"""
     attributes: Optional[UnitAttributes]

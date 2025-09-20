@@ -132,10 +132,13 @@ class UnitEntityLoader(EntityLoader[UnitEntity]):
     """Загрузчик модульных единиц"""
 
     part_extensions: ClassVar = ExtensionsMatcher(("m3d",))
+    transition_assembly_extensions: ClassVar = ExtensionsMatcher(("stp", "step"))
 
     def load(self) -> UnitEntity:
+        metadata = UnitMetadataEntityLoader(self._path).load()
         return UnitEntity(
-            metadata=UnitMetadataEntityLoader(self._path).load(),
+            metadata=metadata,
+            transition_assembly=self._tryLoadTransitionAssembly(metadata.getEntityName()),
             parts=tuple(
                 PartEntityLoader(path).load()
                 for path in
@@ -153,13 +156,13 @@ class UnitEntityLoader(EntityLoader[UnitEntity]):
     def folder(self) -> Path:
         return self._path
 
+    def _tryLoadTransitionAssembly(self, assembly_name: str) -> Optional[Path]:
+        e = tuple(self.transition_assembly_extensions.find(self.folder(), assembly_name))
+        return e[0] if e else None
+
     def _tryLoadAttributes(self) -> Optional[UnitAttributes]:
         a = UnitAttributesLoader(self.folder())
-
-        if a.exists():
-            return a.load()
-
-        return None
+        return a.load() if a.exists() else None
 
 
 class ProjectEntityLoader(EntityLoader[ProjectEntity]):

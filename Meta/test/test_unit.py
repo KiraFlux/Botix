@@ -13,7 +13,7 @@ def _test() -> None:
 
     for key in unit_registry.getAll():
         unit = unit_registry.get(key)
-        print(key, unit)
+        print(key, unit.transition_assembly)
 
     return
 
