@@ -11,6 +11,7 @@
 *.kicad_pcb.lock
 *.kicad_sch.lock
 *-backups/
+*.bak
 
 # Python
 __pycache__/
@@ -50,10 +51,7 @@ Thumbs.db
 *.stp
 *.step
 
-!models/**/*.stp
-!models/**/*.step
-
-!import/**/*.stp
-!import/**/*.step
+!mcad/**/*.stp
+!mcad/**/*.step
 
 *.log

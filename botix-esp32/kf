@@ -1,0 +1,9 @@
+#!/bin/bash
+
+KF_PY=$(find .pio/libdeps -path "*/KiraFlux-Toolkit/kf.py" -type f 2>/dev/null | head -1)
+
+if [ -z "$KF_PY" ]; then
+    pio run
+fi
+
+exec python3 "$KF_PY" "$@"

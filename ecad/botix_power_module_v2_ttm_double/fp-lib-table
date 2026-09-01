@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "botix_library") (type "KiCad") (uri "/home/kiraflux/repos/botix/ecad/botix_library.pretty") (options "") (descr ""))
+)
