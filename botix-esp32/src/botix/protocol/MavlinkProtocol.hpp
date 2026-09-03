@@ -141,20 +141,21 @@ private:
     }
 
     [[nodiscard]] bool sendWheelDistance(PollContext const &context) const noexcept {
+        auto const &wheel_distance = context.outgoing_telemetry.wheel_distance;
+
         mavlink_message_t message;
 
         kf::u8 const wheel_count = 2;
-
         kf::f64 const distance[wheel_count]{
-            context.outgoing_telemetry.wheel_distance.value().left_mm / 1'000,
-            context.outgoing_telemetry.wheel_distance.value().right_mm / 1'000,
+            wheel_distance.value().left_mm / 1'000,
+            wheel_distance.value().right_mm / 1'000,
         };
 
         (void) mavlink_msg_wheel_distance_pack(
             this->config().system_id_self,
             this->config().component_id_telemetry,
             &message,
-            static_cast<kf::u64>(context.timestamp) * 1'000,// time_usec
+            static_cast<kf::u64>(wheel_distance.timestamp()) * 1'000,// time_usec
             wheel_count,
             distance);
 
@@ -162,11 +163,11 @@ private:
     }
 
     [[nodiscard]] bool sendObstacleDistance(PollContext const &context) const noexcept {
-        auto const timestamp_useconds = static_cast<kf::u64>(context.timestamp) * 1'000;
-        auto const &obstacle_distance = context.outgoing_telemetry.obstacle_distance.value();
+        auto const &obstacle_distance = context.outgoing_telemetry.obstacle_distance;
+        auto const timestamp_useconds = static_cast<kf::u64>(obstacle_distance.timestamp()) * 1'000;
 
         bool all_ok = true;
-        auto output = obstacle_distance.distances_mm;
+        auto output = obstacle_distance.value().distances_mm;
         kf::usize angle_offset = 0;
 
         while (output.length() > 0) {
@@ -189,10 +190,10 @@ private:
                 timestamp_useconds,
                 MAV_DISTANCE_SENSOR_LASER,
                 distances_cm,
-                1,                                     // increment (angular width)
-                obstacle_distance.min_distance_mm / 10,// cm
-                obstacle_distance.max_distance_mm / 10,// cm
-                0.0f,                                  // increment_f (not used)
+                1,                                             // increment (angular width)
+                obstacle_distance.value().min_distance_mm / 10,// cm
+                obstacle_distance.value().max_distance_mm / 10,// cm
+                0.0f,                                          // increment_f (not used)
                 static_cast<kf::f32>(angle_offset),
                 MAV_FRAME_BODY_FRD);
 
